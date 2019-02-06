@@ -19,7 +19,8 @@ class Story extends Model
      */
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'form'
     ];
 
     /**

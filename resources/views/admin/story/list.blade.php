@@ -36,8 +36,13 @@
                                     <a href="{{ route('admin.story.edit', $story->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" data-original-title="Edit">
                                         <i class="fa fa-pencil"></i> Edit
                                     </a>
+                                    @if($story->form)
+                                    <a href="{{ route('admin.story.form.update', $story->id) }}" class="btn btn-sm btn-danger" data-toggle="tooltip" data-original-title="Manage Form">
+                                        <i class="fa fa-pencil"></i> Update Form
+                                    </a>
+                                    @endif
                                     <a href="{{ route('admin.story.form', $story->id) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-original-title="Manage Form">
-                                        <i class="fa fa-pencil"></i> Form
+                                        <i class="fa fa-pencil"></i> Generate Form
                                     </a>
                                 </div>
                             </td>

@@ -86,14 +86,47 @@ class StoryController extends Controller
     public function storyForm(Request $request, $id)
     {
         $story = Story::where('id', $id)->first();
-        $content = $story->content;
 
-        if (preg_match_all('/{([^}]*)}/', $content, $matches)) {
-            $formInputs = join("\n", $matches[1]);
+        if($request->isMethod('POST')){
+           $inputFields = $request->except('_token');
+           $story->form = json_encode($inputFields);
+           $story->save();
+
+           return redirect()->route('admin.story.form.update', $story->id)->with('success', 'Form successfully saved');
         }
 
-            dd($formInputs);
+        $content = $story->content;
+        $formInputs = [];
+        if (preg_match_all('/{([^}]*)}/', $content, $matches)) {
+            $formInputs = $matches[1];
+        }
 
+        return view('admin.story.generate_form', [
+            'story' => $story,
+            'formInputs' => $formInputs
+        ]);
+    }
+
+    public function storyFormUpdate(Request $request, $id)
+    {
+        $story = Story::where('id', $id)->first();
+
+        if(is_null($story->form)){
+          return redirect()->route('admin.story.form', $story->id)->with('error', 'You need to generate a form first before updating it');
+        }
+
+        if($request->isMethod('POST')){
+           $inputFields = $request->except('_token');
+           $story->form = json_encode($inputFields);
+           $story->save();
+
+           return redirect()->route('admin.story.form.update', $story->id)->with('success', 'Form successfully saved');
+        }
+
+        return view('admin.story.update_form', [
+            'story' => $story,
+            'formInputs' => json_decode($story->form)
+        ]);
     }
 
 }

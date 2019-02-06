@@ -17,6 +17,7 @@ class CreateStoriesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('content');
+            $table->json('form')->nullable();
             $table->timestamps();
         });
     }

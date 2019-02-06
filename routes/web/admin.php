@@ -18,8 +18,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         ->name('admin.story.edit')
         ->uses('StoryController@edit');
 
-    Route::match(['GET'], 'story/{id}/form')
+    Route::match(['GET', 'POST'], 'story/{id}/form')
         ->name('admin.story.form')
         ->uses('StoryController@storyForm');
+
+    Route::match(['GET', 'POST'], 'story/{id}/form-update')
+        ->name('admin.story.form.update')
+        ->uses('StoryController@storyFormUpdate');
 
 });
