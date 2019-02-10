@@ -33,6 +33,17 @@
                     <textarea class="form-control" name="content" rows="10" placeholder="Content.." required>{{ $story->content }}</textarea>
                 </div>
 
+                <div class="form-group">
+                <label class="col-12">Featured Image</label>
+                  <div class="col-12">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input js-custom-file-input-enabled" id="example-file-input-custom" name="featured_image" data-toggle="custom-file-input">
+                        <label class="custom-file-label" for="example-file-input-custom">Choose file</label>
+                    </div>
+                  </div>
+                </div>
+
+
                <div class="form-group">
                   <button type="submit" class="btn btn-alt-primary">Submit</button>
                </div>

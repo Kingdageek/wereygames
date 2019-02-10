@@ -45,10 +45,30 @@ class StoryController extends Controller
                 return redirect()->back()->withErrors($validator->errors())->withInput($request->input());
             }
 
-            Story::create([
-                'title' => $request->input('title'),
-                'content' => $request->input('content')
-            ]);
+            $story = new Story;
+            $story->title = $request->input('title');
+            $story->content = $request->input('content');
+
+            if ($file = $request->hasFile('featured_image')) {
+                $file = $request->file ('featured_image');
+                $randomKey = sha1(time() . microtime());
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $randomKey . '.' . $extension;
+                $destinationPath = public_path (). '/uploads';
+
+                /*$featuredImage = Image::make($file->getRealPath())->fit(900, 600, function ($constraint) {
+                    $constraint->upsize();
+                });*/
+
+                $featuredImage = Image::make($file->getRealPath());
+                $upload_success = $featuredImage->save($destinationPath . '/' . $fileName);
+
+                if ($upload_success) {
+                    $story->featured_photo = $fileName;
+                }
+            }
+
+            $story->save();
 
             return redirect()->route('admin.stories')->with('success', 'Story successfully created');
         }
@@ -73,6 +93,26 @@ class StoryController extends Controller
 
             $story->title = $request->input('title');
             $story->content = $request->input('content');
+
+             if ($file = $request->hasFile('featured_image')) {
+                $file = $request->file ('featured_image');
+                $randomKey = sha1(time() . microtime());
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $randomKey . '.' . $extension;
+                $destinationPath = public_path (). '/uploads';
+
+                /*$featuredImage = Image::make($file->getRealPath())->fit(900, 600, function ($constraint) {
+                    $constraint->upsize();
+                });*/
+
+                $featuredImage = Image::make($file->getRealPath());
+                $upload_success = $featuredImage->save($destinationPath . '/' . $fileName);
+
+                if ($upload_success) {
+                    $story->featured_photo = $fileName;
+                }
+            }
+
             $story->save();
 
             return redirect()->route('admin.stories')->with('success', 'Story successfully updated');

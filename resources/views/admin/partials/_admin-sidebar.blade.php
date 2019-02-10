@@ -45,11 +45,15 @@
                             <ul class="nav-main">
                                 <li>
                                     <a class="active" href="{{ route('admin.dashboard') }}">
-                                        <i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                                    <i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                                 </li>
                                 <li>
                                     <a class="active" href="{{ route('admin.stories') }}">
-                                        <i class="si si-docs"></i><span class="sidebar-mini-hide">Stories</span></a>
+                                    <i class="si si-docs"></i><span class="sidebar-mini-hide">Stories</span></a>
+                                </li>
+                                <li>
+                                    <a class="active" href="{{ route('admin.users') }}">
+                                    <i class="si si-users"></i><span class="sidebar-mini-hide">Admin Users</span></a>
                                 </li>
                             </ul>
                         </div>
