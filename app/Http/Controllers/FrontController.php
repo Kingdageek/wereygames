@@ -27,4 +27,34 @@ class FrontController extends Controller
         ]);
     }
 
+    public function storyGenerate(Request $request, $id)
+    {
+        $story = Story::where('id', $id)->first();
+        $storyContent = $story->content;
+        $storyFormFields = $request->except('_token');
+
+        $formedStory = preg_replace_callback('/{(.+?)}/ix',function($match)use($storyFormFields){
+            return !empty($storyFormFields[$match[1]]) ? $storyFormFields[$match[1]] : $match[0];
+        }, $storyContent);
+
+        session(['story' => $story, 'formedStory' => $formedStory]);
+
+        return redirect()->route('story.preview');
+    }
+
+    public function storyPreview(Request $request)
+    {
+        if(!$request->session()->has('story') && !$request->session()->has('formedStory')) {
+            return redirect()->route('front.index');
+        }
+
+        $story = $request->session()->get('story');
+        $formedStory = $request->session()->get('formedStory');
+
+        return view('preview', [
+            'story' => $story,
+            'formedStory' => $formedStory
+        ]);
+    }
+
 }
