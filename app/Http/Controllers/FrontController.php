@@ -21,6 +21,10 @@ class FrontController extends Controller
     {
         $story = Story:: whereNotNull('form')->inRandomOrder()->first();
 
+        if(!$story){
+            return redirect()->route('front.index');
+        }
+
         return view('start', [
             'story' => $story,
             'formInputs' => json_decode($story->form)
