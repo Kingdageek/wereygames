@@ -20,6 +20,7 @@ class Story extends Model
     protected $fillable = [
         'title',
         'content',
+        'featured_photo',
         'form'
     ];
 
@@ -29,4 +30,16 @@ class Story extends Model
      * @var array
      */
     protected $hidden = ['created_at', 'updated_at'];
+
+    public function getFeaturedImageAttribute()
+    {
+        $featured_image = $this->featured_photo;
+        if (!$featured_image || is_null($featured_image)) {
+            $url = url('assets/front/img/work-2.jpg');
+        }else{
+            $url = url('uploads/' . $featured_image);
+        }
+
+        return $url;
+    }
 }

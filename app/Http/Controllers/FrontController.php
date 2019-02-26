@@ -19,7 +19,7 @@ class FrontController extends Controller
 
     public function start(Request $request)
     {
-        $story = Story:: whereNotNull('form')->inRandomOrder()->first();
+        $story = Story::whereNotNull('form')->inRandomOrder()->first();
 
         if(!$story){
             return redirect()->route('front.index');
@@ -58,6 +58,15 @@ class FrontController extends Controller
         return view('preview', [
             'story' => $story,
             'formedStory' => $formedStory
+        ]);
+    }
+
+    public function stories(Request $request)
+    {
+        $stories = Story::whereNotNull('form')->orderBy('created_at', 'desc')->paginate(40);
+
+        return view('stories', [
+            'stories' => $stories
         ]);
     }
 

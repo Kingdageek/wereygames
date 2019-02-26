@@ -12,7 +12,7 @@
                 </div>
                 <div class="row mt-5">
                     <div class="col-md-5">
-
+                        <img src="{{ $story->featured_image }}" width="520px">
                     </div>
                     <div class="col-md-6 ml-auto">
                        {!! nl2br($formedStory) !!}
