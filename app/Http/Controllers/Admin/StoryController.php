@@ -163,9 +163,23 @@ class StoryController extends Controller
            return redirect()->route('admin.story.form.update', $story->id)->with('success', 'Form successfully saved');
         }
 
+        $storyContent = $story->content;
+        $contentFormInputs = [];
+        if (preg_match_all('/{([^}]*)}/', $storyContent, $matches)) {
+            $contentFormInputs = $matches[1];
+        }
+
+        $contentForm = [];
+        foreach ($contentFormInputs as $key => $value) {
+            $contentForm[$value] = '';
+        }
+
+        $existingStoryInputs = json_decode($story->form, true);
+        $formInputs = array_merge($contentForm, $existingStoryInputs);
+
         return view('admin.story.update_form', [
             'story' => $story,
-            'formInputs' => json_decode($story->form)
+            'formInputs' => $formInputs
         ]);
     }
 
