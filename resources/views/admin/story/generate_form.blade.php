@@ -27,7 +27,7 @@
                 @foreach($formInputs as $key => $input)
                 <div class="form-group">
                     <label for="title">{{ ucfirst($input) }}</label>
-                    <input  type="text" class="form-control" name="{{ $input }}" placeholder="Enter example placeholder" required>
+                    <input  type="text" class="form-control" name="{{ preg_replace('/\s+/', '_', $input) }}" placeholder="Enter example placeholder" required>
                 </div>
                 @endforeach
 

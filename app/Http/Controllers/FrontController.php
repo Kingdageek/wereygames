@@ -34,12 +34,17 @@ class FrontController extends Controller
     public function storyGenerate(Request $request, $id)
     {
         $story = Story::where('id', $id)->first();
-        $storyContent = $story->content;
         $storyFormFields = $request->except('_token');
+        $storyContent = $story->content;
+        //$formattedStoryContent = preg_replace('/(?<=[\w\s])\s(?=[\w\s]*?\})/', '_', $storyContent);
+
+        $formattedStoryContent = preg_replace_callback("/\{[\w\s]*?\}/", function($matches) {
+            return preg_replace("/\s+/", "_", $matches[0]);
+            }, $storyContent);
 
         $formedStory = preg_replace_callback('/{(.+?)}/ix',function($match)use($storyFormFields){
             return !empty($storyFormFields[$match[1]]) ? $storyFormFields[$match[1]] : $match[0];
-        }, $storyContent);
+        }, $formattedStoryContent);
 
         session(['story' => $story, 'formedStory' => $formedStory]);
 

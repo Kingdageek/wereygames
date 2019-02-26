@@ -138,7 +138,7 @@ class StoryController extends Controller
         $content = $story->content;
         $formInputs = [];
         if (preg_match_all('/{([^}]*)}/', $content, $matches)) {
-            $formInputs = $matches[1];
+            $formInputs = $matches[1]; //preg_replace('/\s+/', '_', $matches[1]);
         }
 
         return view('admin.story.generate_form', [
@@ -166,7 +166,7 @@ class StoryController extends Controller
         $storyContent = $story->content;
         $contentFormInputs = [];
         if (preg_match_all('/{([^}]*)}/', $storyContent, $matches)) {
-            $contentFormInputs = $matches[1];
+            $contentFormInputs = preg_replace('/\s+/', '_', $matches[1]);
         }
 
         $contentForm = [];
@@ -176,7 +176,6 @@ class StoryController extends Controller
 
         $existingStoryInputs = json_decode($story->form, true);
         $formInputs = array_merge($contentForm, $existingStoryInputs);
-
         return view('admin.story.update_form', [
             'story' => $story,
             'formInputs' => $formInputs
