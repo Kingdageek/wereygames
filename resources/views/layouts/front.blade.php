@@ -7,6 +7,8 @@
     <meta name="description" content="The funniest word-game you've ever played"/>
     <link href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/front/css/jssocials.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/css/jssocials-theme-flat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/css/default.css') }}" id="theme-color">
     <link rel="stylesheet" href="{{ asset('assets/front/css/custom.css') }}">
 </head>
@@ -47,6 +49,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.7.0/feather.min.js"></script>
+    <script src="{{ asset('assets/front/js/jssocials.min.js') }}"></script>
     <script src="{{ asset('assets/front/js/scripts.js') }}"></script>
+    @yield('page:scripts')
     </body>
 </html>

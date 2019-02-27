@@ -16,9 +16,27 @@
                     </div>
                     <div class="col-md-6 ml-auto">
                        {!! nl2br($formedStory) !!}
+                       <div id="share"></div>
                     </div>
                 </div>
             </div>
         </section>
+
+@endsection
+
+@section('page:scripts')
+<script type="text/javascript">
+    $("#share").jsSocials({
+    showCount: false,
+    showLabel: true,
+    shares: [
+        "twitter",
+        { share: "facebook", label: "Share" },
+        "linkedin",
+        { share: "pinterest", label: "Pin this" },
+        "whatsapp"
+    ]
+});
+</script>
 
 @endsection
