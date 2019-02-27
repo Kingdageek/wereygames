@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Story;
+use App\Models\UserStory;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -36,7 +37,6 @@ class FrontController extends Controller
         $story = Story::where('id', $id)->first();
         $storyFormFields = $request->except('_token');
         $storyContent = $story->content;
-        //$formattedStoryContent = preg_replace('/(?<=[\w\s])\s(?=[\w\s]*?\})/', '_', $storyContent);
 
         $formattedStoryContent = preg_replace_callback("/\{[\w\s]*?\}/", function($matches) {
             return preg_replace("/\s+/", "_", $matches[0]);
@@ -46,19 +46,30 @@ class FrontController extends Controller
             return !empty($storyFormFields[$match[1]]) ? $storyFormFields[$match[1]] : $match[0];
         }, $formattedStoryContent);
 
-        session(['story' => $story, 'formedStory' => $formedStory]);
+        $slug = $this->generateSlug();
 
-        return redirect()->route('story.preview');
+        $userStory = UserStory::create([
+            'slug' => $slug,
+            'story_id' => $story->id,
+            'content' => $formedStory
+        ]);
+
+        return redirect()->route('story.preview', $userStory->slug);
     }
 
-    public function storyPreview(Request $request)
+    public function storyPreview(Request $request, $slug)
     {
-        if(!$request->session()->has('story') && !$request->session()->has('formedStory')) {
+        if(!$slug) {
             return redirect()->route('front.index');
         }
 
-        $story = $request->session()->get('story');
-        $formedStory = $request->session()->get('formedStory');
+        $formedStory = UserStory::where('slug', $slug)->first();
+
+        if(!$formedStory){
+            return redirect()->route('front.index');
+        }
+
+        $story = Story::where('id', $formedStory->story_id)->first();
 
         return view('preview', [
             'story' => $story,
@@ -73,6 +84,20 @@ class FrontController extends Controller
         return view('stories', [
             'stories' => $stories
         ]);
+    }
+
+    public function generateSlug() {
+        $slug = str_random(15);
+        // call the same function if the slug exists already
+        if (slugExists($slug)) {
+            return generateSlug();
+        }
+        // otherwise, it's valid and can be used
+        return $slug;
+    }
+
+    public function slugExists($slug) {
+        return UserStory::whereSlug($slug)->exists();
     }
 
 }

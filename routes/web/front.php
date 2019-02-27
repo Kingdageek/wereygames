@@ -8,6 +8,10 @@ Route::match(['GET', 'POST'], '/start')
     ->name('front.start')
     ->uses('FrontController@start');
 
+Route::match(['GET', 'POST'], '/unlock')
+    ->name('story.unlock')
+    ->uses('StoryController@unlock');
+
 Route::match(['GET', 'POST'], '/stories')
     ->name('front.stories')
     ->uses('FrontController@stories');
@@ -16,6 +20,6 @@ Route::match(['POST'], '/story/{id}')
     ->name('story.generate')
     ->uses('FrontController@storyGenerate');
 
-Route::match(['GET'], '/story/preview')
+Route::match(['GET'], 'my/story/{slug}')
     ->name('story.preview')
     ->uses('FrontController@storyPreview');
