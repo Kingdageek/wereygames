@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Filesystem\Filesystem;
 use Intervention\Image\Facades\Image;
 use App\Models\Story;
+use App\Models\UserStory;
 use Validator;
 use Log;
 use Auth;
@@ -180,6 +181,14 @@ class StoryController extends Controller
             'story' => $story,
             'formInputs' => $formInputs
         ]);
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $story = Story::where('id', $id)->first();
+        $userStory = UserStory::where('story_id', $story->id)->delete();
+        $story->delete();
+        return redirect()->back()->with('info', 'Story deleted successfully');
     }
 
 }
