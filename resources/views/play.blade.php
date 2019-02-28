@@ -23,8 +23,8 @@
                                 @foreach($formInputs as $key => $input)
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="{{ $key }}">{{ strtok($input, " ") }}</label>
-                                        <input type="text" name="{{ $key }}" class="form-control" placeholder="{{ substr(strstr($input,' '), 1) }}" required>
+                                        <label for="{{ $key }}">{{ ucfirst(str_replace('_', ' ', $key)) }}</label>
+                                        <input type="text" name="{{ $key }}" class="form-control" placeholder="{{ $input }}" required>
                                     </div>
                                 </div>
                                 @endforeach

@@ -26,9 +26,23 @@ class StoryController extends Controller
         if(!$story){
             return redirect()->route('front.index');
          }
+
+        $contentFormInputs = [];
+        if (preg_match_all('/{([^}]*)}/', $story->content, $matches)) {
+            $contentFormInputs = preg_replace('/\s+/', '_', $matches[1]);
+        }
+
+        $contentForm = [];
+        foreach ($contentFormInputs as $key => $value) {
+            $contentForm[$value] = '';
+        }
+
+        $existingStoryInputs = json_decode($story->form, true);
+        $formInputs = array_merge($contentForm, $existingStoryInputs);
+
         return view('play', [
             'story' => $story,
-            'formInputs' => json_decode($story->form)
+            'formInputs' => $formInputs
         ]);
     }
 
