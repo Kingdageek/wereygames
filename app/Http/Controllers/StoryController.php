@@ -44,6 +44,7 @@ class StoryController extends Controller
 
     public function storyGenerate(Request $request, $id)
     {
+        $guest = session()->get('guest');
         $story = Story::where('id', $id)->first();
         $storyFormFields = $request->except('_token');
         $storyContent = $story->content;
@@ -60,6 +61,7 @@ class StoryController extends Controller
 
         $userStory = UserStory::create([
             'slug' => $slug,
+            'guest_id' => $guest->id,
             'story_id' => $story->id,
             'content' => $formedStory
         ]);
@@ -83,8 +85,8 @@ class StoryController extends Controller
     public function generateSlug() {
         $slug = str_random(15);
         // call the same function if the slug exists already
-        if (slugExists($slug)) {
-            return generateSlug();
+        if ($this->slugExists($slug)) {
+            return $this->generateSlug();
         }
         // otherwise, it's valid and can be used
         return $slug;

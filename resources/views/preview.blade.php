@@ -15,7 +15,7 @@
                         <img src="{{ $story->featured_image }}" width="520px">
                     </div>
                     <div class="col-md-6 ml-auto">
-                       {!! nl2br($formedStory) !!}
+                       {!! nl2br($formedStory->content) !!}
                        <div id="share"></div>
                     </div>
                 </div>

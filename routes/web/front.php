@@ -26,6 +26,7 @@ Route::match(['GET'], '/story/{id}')
 
 Route::match(['POST'], '/story/{id}')
     ->name('story.generate')
+    ->middleware('guestUser')
     ->uses('StoryController@storyGenerate');
 
 Route::match(['GET'], 'my/story/{slug}')

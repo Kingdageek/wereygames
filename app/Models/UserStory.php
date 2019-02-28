@@ -19,6 +19,7 @@ class UserStory extends Model
      */
     protected $fillable = [
         'slug',
+        'guest_id',
         'content',
         'story_id',
     ];
