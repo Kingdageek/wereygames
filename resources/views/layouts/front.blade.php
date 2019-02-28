@@ -7,9 +7,11 @@
     <link href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('assets/front/css/jssocials.css') }}">
+    @yield('vendor:styles')
     <link rel="stylesheet" href="{{ asset('assets/front/css/jssocials-theme-flat.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/front/css/default.css') }}" id="theme-color">
+    <link rel="stylesheet" href="{{ asset('assets/front/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/css/custom.css') }}">
+    @yield('page:styles')
 </head>
 <body>
     <!--navigation-->
@@ -31,6 +33,7 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <ul class="list-inline">
+                        <li class="list-inline-item"><a href="{{ route('get.stories') }}">Stories</a></li>
                         <li class="list-inline-item"><a href="#">About</a></li>
                         <li class="list-inline-item"><a href="#">Privacy</a></li>
                     </ul>
@@ -48,6 +51,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.7.0/feather.min.js"></script>
+   @yield('vendor:scripts')
     <script src="{{ asset('assets/front/js/jssocials.min.js') }}"></script>
     <script src="{{ asset('assets/front/js/scripts.js') }}"></script>
     @yield('page:scripts')

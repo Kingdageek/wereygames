@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserStoriesTable extends Migration
+class CreateGuestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateUserStoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_stories', function (Blueprint $table) {
+        Schema::create('guests', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('guest_id');
-            $table->string('slug')->unique();
-            $table->integer('story_id')->unsigned();
-            $table->text('content');
+            $table->string('identifier');
+            $table->boolean('has_unlocked')->default(false);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateUserStoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_stories');
+        Schema::dropIfExists('guests');
     }
 }

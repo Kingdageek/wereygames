@@ -8,8 +8,10 @@
             <div class="col-md-7 mx-auto text-center">
                 <h1 class="text-primary">"<span style="color:#ffffff">The funniest word-game you've ever played</span>"</h1>
                 <h2 class="display-4">How to Play</h2>
-
-                <a href="{{ route('front.start') }}" class="btn btn-danger">
+                <ul>
+                    <li></li>
+                </ul>
+                <a href="{{ route('story.play') }}" class="btn btn-danger">
                     Play Now!
                 </a>
             </div>

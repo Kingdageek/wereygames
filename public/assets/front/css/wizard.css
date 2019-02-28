@@ -4,15 +4,15 @@
 /*  ------------------------------------------------------------  */
 
 
-body {
-    margin: 0px;
-    padding: 0px;
-    line-height: 170%;
-    padding: 20px;
+body { 
+    margin: 0px; 
+    padding: 0px; 
+    line-height: 170%; 
+    padding: 20px; 
     font-family: "Arial";
 }
-h1, h2, h3, h4, h5 {
-    padding: 0px; margin: 20px 0 20px 0;
+h1, h2, h3, h4, h5 { 
+	padding: 0px; margin: 20px 0 20px 0; 
 }
 h2 {
     margin-bottom: 0px;
@@ -21,59 +21,59 @@ h4 {
     margin-bottom: 10px;
 }
 a {
-    color: #000;
+	color: #000;
 }
-p {
-    margin: 8px 0;
+p { 
+	margin: 8px 0; 
 }
-.wrap {
-    max-width: 700px;
-    margin: auto;
+.wrap { 
+	max-width: 700px;
+	margin: auto;
 }
-.notice ,
+.notice , 
 .notice-2  {
-    background-color: #fffec7;
-    padding: 10px;
-    line-height: 130%;
+	background-color: #fffec7; 
+	padding: 10px; 
+	line-height: 130%;
 }
 .notice-2 {
-    background-color: #f4f4f4;
-    margin-top: 10px;
+	background-color: #f4f4f4; 
+	margin-top: 10px;
         margin-bottom: 30px;
 }
-#example {
-    padding: 20px 0;
+#example { 
+	padding: 20px 0;
 }
-img.left {
-    float: left;
-    margin: 0 15px 10px 0;
+img.left { 
+	float: left;
+	margin: 0 15px 10px 0; 
 }
-img.right {
-    float: right;
-    margin: 0 0 10px 15px;
+img.right { 
+	float: right; 
+	margin: 0 0 10px 15px; 
 }
-.ui-locker {
-    margin: 10px 0;
+.ui-locker { 
+	margin: 10px 0; 
 }
-.short {
-    font-size: 10px;
+.short { 
+	font-size: 10px;
 }
 .example {
     margin-top: 40px;
 }
 #built-in-themes .title {
-    font-style: normal;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-    margin-top: 25px;
+	font-style: normal;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+	margin-top: 25px;
 }
 #built-in-themes .title:first-child {
-    margin-top: 0px;
+	margin-top: 0px;
 }
 #built-in-themes .pattern-background {
-    background: url("../img/compare-bg.png");
-    padding: 50px;
-    box-shadow: inset 0 0 80px rgba(255,255,255,1);
+	background: url("../img/compare-bg.png");
+	padding: 50px;
+	box-shadow: inset 0 0 80px rgba(255,255,255,1);
 }
 .to-lock {
     background-color: #fefefe;
@@ -138,7 +138,7 @@ img.right {
     border:1px solid #B5B5B5;
     margin-bottom:10px;
     font-size:13px;
-    list-style:none;
+    list-style:none;     
 }
 .slg-setting-panel-button-segment ul li label {
     margin-left:30px;
@@ -288,7 +288,7 @@ img.right {
     border-top: 4px solid #000;
     border-radius: 0 0 5px 5px;
     z-index:9999;
-
+    
     color: #fff;
     font-weight: normal;
     background-color: #000;
