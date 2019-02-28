@@ -67,8 +67,16 @@ class StoryController extends Controller
         return redirect()->route('story.preview', $userStory->slug);
     }
 
-    public function unlock()
+    public function unlock(Request $request)
     {
+        $guest = session()->get('guest');
+        if($request->isMethod('POST')){
+            $guest->has_unlocked = true;
+            $guest->save();
+            return response()->json([
+                'success' => true,
+            ]);
+        }
         return view('unlock');
     }
 

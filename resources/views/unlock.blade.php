@@ -35,6 +35,21 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function ($) {
+   $.pandalocker.hooks.add( 'opanda-unlock', function(e, locker, sender){
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+         });
+        $.ajax({
+            url: '/unlock',
+            type:'POST',
+            dataType: 'json',
+            success: function(output_string){
+                console.log('The content was unlocked via: ' + sender + "!");
+            } // End of success function of ajax form
+        }); // End of ajax call
+    });
    $('.to-lock').sociallocker({
     demo: true,
     text:{
@@ -68,5 +83,4 @@ jQuery(document).ready(function ($) {
    });
 });
 </script>
-
 @endsection
