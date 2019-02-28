@@ -16,7 +16,7 @@ Route::match(['GET', 'POST'], '/unlock')
 
 Route::match(['GET', 'POST'], '/stories')
     ->name('get.stories')
-    ->middleware('guestUser')
+    ->middleware(['guestUser', 'unlocked'])
     ->uses('StoryController@getStories');
 
 Route::match(['GET'], '/story/{id}')
