@@ -11,7 +11,13 @@ class StoryController extends Controller
 {
     public function play(Request $request)
     {
-        $guest = session('guest');
+        $guest = session()->get('guest');
+
+        $userStories = UserStory::where('guest_id', $guest->id)->count();
+        if(!$guest->has_unlocked && $userStories >= 2){
+            return redirect()->route('story.unlock');
+        }
+
         if ($request->session()->has('story')) {
             $story = session('story');
         }else{
