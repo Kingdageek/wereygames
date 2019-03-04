@@ -17,7 +17,7 @@
 </head>
 <body>
     <!--navigation-->
-    <section class="bh-white py-3 main-bg">
+    <section class="bh-white py-3 story-header">
         <div class="container-fluid">
             <div class="row">
                  <div class="col-12 d-flex flex-row align-items-center justify-content-between">
@@ -32,7 +32,7 @@
    @yield('content')
 
    <!--footer-->
-    <footer class="py-5 main-bg">
+    <footer class="py-5 story-bg">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">

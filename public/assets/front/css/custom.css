@@ -1,6 +1,77 @@
-/*****************
-Custom CSS
-*****************/
+a:hover{
+  color: #F3E631;
+}
+.yellow-color{
+  color:#F3E631;
+}
+
+.main-bg{
+    background: #00BA9E;
+}
+
+.form-bg{
+  background: #3BC396;
+}
+
+.story-bg{
+  background: #72C98C;
+}
+
+.story-header{
+  width: 100%;
+  height: 150px;
+  text-align: center;
+  font-size: 36px;
+  padding: 5% 25px;
+  background: #00BA9E;
+  color: #fff;
+  position: relative;
+}
+
+.story-header:after{
+  content: "";
+  border-left: 99.58vw solid #00BA9E;
+  border-top: 20px solid transparent;
+  border-bottom: 43px solid transparent;
+  bottom: -43px;
+  position: absolute;
+  left: -10px;
+}
+
+.btn-pink {
+    color: #fff;
+    background-color: #C0306E;
+    border-color: #C0306E;
+}
+
+.quote {
+  font-family: Georgia, serif;
+  font-size: 14px;
+}
+
+.curly-quotes:before, .curly-quotes:after {
+  display: inline-block;
+  vertical-align: top;
+  height: 30px;
+  line-height: 48px;
+  font-size: 60px;
+  opacity: .9;
+  color:#F3E631;
+}
+
+.curly-quotes:before {
+  content: '\201C';
+  margin-right: 4px;
+  margin-left: -8px;
+}
+
+.curly-quotes:after {
+  content: '\201D';
+  margin-left: 4px;
+  margin-right: -8px;
+}
+
+
 ::-moz-selection {
   background-color: #ffff00;
   color: #000000; }
@@ -119,10 +190,6 @@ footer a {
       border-radius: 50%;
       background-color: #dee2e6; }
 
-.main-bg{
-    background: #00BA9E;
-}
-
 .form-control {
   display: block;
   width: 100%;
@@ -130,9 +197,9 @@ footer a {
   font-size: 1rem;
   line-height: 1.5;
   color: #495057;
-  background-color: #ffffff;
+  background-color: #00BA9E;
   background-clip: padding-box;
-  border: 2px solid #f8f9fa;
+  border: 1px solid #F3E631;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
   .form-control::-ms-expand {
