@@ -55,7 +55,7 @@ class StoryController extends Controller
 
     public function getStories(Request $request)
     {
-        $stories = Story::whereNotNull('form')->orderBy('created_at', 'desc')->paginate(40);
+        $stories = Story::whereNotNull('form')->orderBy('created_at', 'desc')->paginate(20);
 
         return view('stories', [
             'stories' => $stories
@@ -92,6 +92,7 @@ class StoryController extends Controller
     public function unlock(Request $request)
     {
         $guest = session()->get('guest');
+
         if($request->isMethod('POST')){
             $guest->has_unlocked = true;
             $guest->save();
@@ -99,7 +100,12 @@ class StoryController extends Controller
                 'success' => true,
             ]);
         }
-        return view('unlock');
+
+        $stories = Story::whereNotNull('form')->orderBy('created_at', 'desc')->take(20)->get();
+
+        return view('unlock', [
+            'stories' => $stories
+        ]);
     }
 
     public function generateSlug() {

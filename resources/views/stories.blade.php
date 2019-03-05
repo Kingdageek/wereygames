@@ -10,17 +10,20 @@
                     </div>
                 </div>
                 <div class="row mt-5">
-                    @foreach($stories->chunk(10) as $items)
-                    <div class="col-md-6">
-                        <div class="list-group">
-                          @foreach($items as $item)
-                          <a href="{{ route('story.select', $item->id) }}" class="list-group-item list-group-item-action">
-                            {{ $item->title }}
-                          </a>
+                   @foreach($stories->chunk(10) as $chunk)
+                   <div class="row">
+                        @foreach($chunk as $story)
+                          <div class="col-md-6">
+                            <a href="{{ route('story.select', $story->id) }}" class="list-group-item list-group-item-action">
+                              {{ $story->title }}
+                            </a>
+                          </div>
                           @endforeach
-                        </div>
                     </div>
                     @endforeach
+                </div>
+                <div class="row">
+                    {!! $stories->render() !!}
                 </div>
             </div>
         </section>

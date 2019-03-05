@@ -51,8 +51,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
     jQuery('.play-game').foxholder({
-    placeholderDemo: 9, // for placeholder demo (1 - 15)
-    buttonDemo: 6 //for button demos (1 - 8), if you need a button effect
+    placeholderDemo: 6,
+    buttonDemo: 6
   });
 });
 </script>

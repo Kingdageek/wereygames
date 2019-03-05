@@ -5,19 +5,25 @@
 
     <section class="py-7 main-bg">
             <div class="container">
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col-md-7 mx-auto text-center">
-                        <h2 class="text-capitalize">Unlock to Play</h2>
+                        <h2 class="text-capitalize text-white">PICK A STORY</h2>
                     </div>
                 </div>
-                <div class="row mt-5">
-                    <div class="col-md-6 offset-md-3">
-                     <div class="to-lock" style="text-align: center;">
-                        <a href="{{ route('get.stories') }}" class="btn btn-danger">
-                            Play More Games!
-                        </a>
-                     </div>
+                <div class="row mt-5 my-auto mx-auto text-center">
+                  <div class="to-lock" style="width:100%; text-align: center;">
+                   @foreach($stories->chunk(2) as $chunk)
+                   <div class="row">
+                        @foreach($chunk as $story)
+                          <div class="col-md-6">
+                            <a href="{{ route('story.select', $story->id) }}" class="list-group-item list-group-item-action">
+                              {{ $story->title }}
+                            </a>
+                          </div>
+                          @endforeach
                     </div>
+                    @endforeach
+                  </div>
                 </div>
             </div>
     </section>
@@ -51,12 +57,16 @@ jQuery(document).ready(function ($) {
         }); // End of ajax call
     });
    $('.to-lock').sociallocker({
-    demo: true,
+    demo: false,
     text:{
-       header: 'Interesting Games?',
-       message: 'Please support us, use one of the buttons below to unlock more story games'
+       header: 'Over 100 Stories to choose from',
+       message: 'To unlock, perform any of the actions below'
     },
-    theme: 'flat',
+    theme: 'glass',
+    overlap:{
+      mode:'transparence',
+      intensity: '0'
+    },
     facebook:{
        like:{
           url: 'https://facebook.com/codulab',
