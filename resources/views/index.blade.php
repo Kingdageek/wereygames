@@ -35,7 +35,7 @@
     $(document).ready(function(){
  // initialization of text animation (typing)
     var typed = new Typed(".u-text-animation.u-text-animation--typing", {
-        strings: ["played.", "yashed.", "astonishing."],
+        strings: ["Tied.", "Spanked.", "Kissed.", "Swallowed.", "Played."],
         typeSpeed: 60,
         loop: true,
         backSpeed: 25,
