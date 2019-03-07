@@ -62,6 +62,8 @@ class FrontController extends Controller
 
         $this->pageSeoService->preview($story, $formedStory);
 
+        views($formedStory)->delayInSession(2)->record();
+
         return view('preview', [
             'story' => $story,
             'formedStory' => $formedStory
