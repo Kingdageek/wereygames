@@ -5,6 +5,18 @@
 @section('content')
 
 <div class="content">
+    <div class="content-heading">
+        Statistics <small class="d-none d-sm-inline">Awesome!</small>
+   </div>
+
+    @include('admin._dashboard-stats', ['data' => $data])
+
+    {!! $story_chart->renderHtml() !!}
 
 </div>
+@endsection
+
+@section('page:scripts')
+    {!! $story_chart->renderChartJsLibrary() !!}
+    {!! $story_chart->renderJs() !!}
 @endsection

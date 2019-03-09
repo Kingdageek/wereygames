@@ -2,18 +2,51 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Validator;
+use App\Models\Story;
+use App\Models\UserStory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Filesystem\Filesystem;
 use Intervention\Image\Facades\Image;
-use Validator;
+use CyrildeWit\EloquentViewable\Views;
+use CyrildeWit\EloquentViewable\Support\Period;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
-    	return view('admin.dashboard');
+       $storyView = Story::orderByViews('asc', Period::pastDays(3))->get();
+       dd($storyView);
+
+        $data = [
+            'totalStories' => Story::count(),
+            'totalUserStories' => UserStory::count(),
+            'totalViewsStories' => views()->countByType(Story::class),
+            'totalViewsUserStories' => views()->countByType(UserStory::class)
+        ];
+
+        $story_options = [
+            'chart_title' => 'Users by months',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\Story',
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'week',
+            'chart_type' => 'line',
+
+            'filter_field' => 'created_at',
+            'filter_days' => 30, // show only transactions for last 30 days
+            'filter_period' => 'week', // show only transactions for this week
+        ];
+
+        $story_chart = new LaravelChart($story_options);
+
+    	return view('admin.dashboard', [
+            'data' => $data,
+            'story_chart' => $story_chart
+        ]);
     }
 
     public function manageAds(Request $request)

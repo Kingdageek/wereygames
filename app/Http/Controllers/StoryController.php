@@ -14,6 +14,7 @@ class StoryController extends Controller
         $guest = session()->get('guest');
 
         $userStories = UserStory::where('guest_id', $guest->id)->count();
+
         if(!$guest->has_unlocked && $userStories >= 2){
             return redirect()->route('story.unlock');
         }
@@ -40,7 +41,7 @@ class StoryController extends Controller
         $existingStoryInputs = json_decode($story->form, true);
         $formInputs = array_merge($contentForm, $existingStoryInputs);
 
-        views($post)->delayInSession(2)->record();
+        views($story)->delayInSession(2)->record();
 
         return view('play', [
             'story' => $story,

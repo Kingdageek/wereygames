@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Cookie;
 use App\Models\Story;
 use App\Models\Guest;
 use App\Models\UserStory;
@@ -28,11 +29,12 @@ class FrontController extends Controller
      */
     public function index(Request $request)
     {
-        $agent = new Agent();
-        $guestIdentifier = md5(request()->ip().session()->getId().$agent->platform().$agent->device().$agent->browser());
-        $guest = Guest::where('identifier', $guestIdentifier)->first();
+        $cookie = Cookie::get('identifier');
+        $guest = Guest::where('identifier', $cookie)->first();
 
         if(!$guest){
+            $agent = new Agent();
+            $guestIdentifier = md5(request()->ip().session()->getId().$agent->platform().$agent->device().$agent->browser());
             $guest = Guest::create([
                 'identifier' => $guestIdentifier,
                 'has_unlocked' => false
@@ -43,7 +45,7 @@ class FrontController extends Controller
 
         $this->pageSeoService->index();
 
-        return view('index');
+        return response()->view('index')->cookie('identifier', $guest->identifier);
     }
 
     public function storyPreview(Request $request, $slug)
