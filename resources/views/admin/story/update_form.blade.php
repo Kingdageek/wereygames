@@ -25,7 +25,7 @@
 
                 @foreach($formInputs as $key => $input)
                 <div class="form-group">
-                    <label for="title">{{ ucfirst(str_replace('_', ' ', $key)) }}</label>
+                    <label for="title">{{ ucfirst(str_replace('_', ' ', ltrim($key, "form_'.$loop->index.'_"))) }}</label>
                     <input  type="text" class="form-control" name="{{ $key }}" value="{{ $input }}" required>
                 </div>
                 @endforeach

@@ -35,7 +35,7 @@ class StoryController extends Controller
 
         $contentForm = [];
         foreach ($contentFormInputs as $key => $value) {
-            $contentForm[$value] = '';
+            $contentForm['form_'.$key.'_'.$value] = '';
         }
 
         $existingStoryInputs = json_decode($story->form, true);
@@ -72,13 +72,25 @@ class StoryController extends Controller
         $storyFormFields = $request->except('_token');
         $storyContent = $story->content;
 
-        $formattedStoryContent = preg_replace_callback("/\{[\w\s]*?\}/", function($matches) {
+        $contentFormInputs = [];
+        if (preg_match_all('/{([^}]*)}/', $storyContent, $matches)) {
+            $contentFormInputs = preg_replace('/\s+/', '_', $matches[1]);
+        }
+
+        $combinedInputKeys =  array_keys($storyFormFields);
+
+        $formattedStoryContent = preg_replace_callback("/\{[\w\s]*?\}/", function($matches) use ($storyFormFields){
             return preg_replace("/\s+/", "_", $matches[0]);
-            }, $storyContent);
+         }, $storyContent);
+
+        $processedStoryContent = preg_replace_callback('/\{(.+?)\}/', function () use(&$combinedInputKeys) {
+        $replacement = array_shift($combinedInputKeys);
+            return "{{$replacement}}";
+        }, $formattedStoryContent);
 
         $formedStory = preg_replace_callback('/{(.+?)}/ix',function($match)use($storyFormFields){
             return !empty($storyFormFields[$match[1]]) ? $storyFormFields[$match[1]] : $match[0];
-        }, $formattedStoryContent);
+        }, $processedStoryContent);
 
         $slug = $this->generateSlug();
 

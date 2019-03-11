@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row mt-6">
             <div class="col-md-7 mx-auto text-center">
-                <h1 class="text-white display-4">
+                <h1 class="text-white display-4 text-center">
                     <blockquote class="curly-quotes">The funniest word-game you've ever
                         <span class="yellow-color"><strong class="u-text-animation u-text-animation--typing"></strong></span>
                     </blockquote>

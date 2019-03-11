@@ -172,11 +172,12 @@ class StoryController extends Controller
 
         $contentForm = [];
         foreach ($contentFormInputs as $key => $value) {
-            $contentForm[$value] = '';
+            $contentForm['form_'.$key.'_'.$value] = '';
         }
 
         $existingStoryInputs = json_decode($story->form, true);
         $formInputs = array_merge($contentForm, $existingStoryInputs);
+
         return view('admin.story.update_form', [
             'story' => $story,
             'formInputs' => $formInputs

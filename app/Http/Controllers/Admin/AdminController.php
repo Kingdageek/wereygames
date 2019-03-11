@@ -18,8 +18,8 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-       $storyView = Story::orderByViews('asc', Period::pastDays(3))->get();
-       dd($storyView);
+       //$storyView = Story::orderByViews('asc', Period::pastDays(3))->get();
+       //dd($storyView);
 
         $data = [
             'totalStories' => Story::count(),

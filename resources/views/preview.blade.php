@@ -36,8 +36,6 @@
     shares: [
         "twitter",
         { share: "facebook", label: "Share" },
-        "linkedin",
-        { share: "pinterest", label: "Pin this" },
         "whatsapp"
     ]
 });
