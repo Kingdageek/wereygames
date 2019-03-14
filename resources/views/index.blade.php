@@ -5,18 +5,18 @@
 <section class="bg-hero pt-5" style="border-radius: 0px;">
     <div class="container">
         <div class="row mt-6">
-            <div class="col-md-7 mx-auto text-center">
-                <h1 class="text-white display-4 text-center">
-                    <blockquote class="curly-quotes">The funniest word-game you've ever
+            <div class="col-md-8 mx-auto text-center">
+                <h1 class="text-white text-center" style="font-size:48px">
+                    <span class="yellow-color">"</span>The funniest word-game you've ever
                         <span class="yellow-color"><strong class="u-text-animation u-text-animation--typing"></strong></span>
-                    </blockquote>
+                    <span class="yellow-color">"</span>
                 </h1>
-                <h4 class="pt-5 text-white">How to Play</h4>
-                <ul>
-                    <li class="text-white">You will see a <strong>form</strong></li>
-                    <li class="text-white">Fill the form with the <strong>silliest</strong> words</li>
-                    <li class="text-white">Click submit and get your own <strong>Crazy Story</strong></li>
-                </ul>
+            </div>
+            <div class="col-md-8 mx-auto text-center">
+                <h4 class="pt-5 text-white text-center">How to Play</h4>
+                    <p class="text-white" style="margin-bottom:2px"><i class="fa fa-square"></i> You will see a <strong>form</strong></p>
+                    <p class="text-white" style="margin-bottom:2px"><i class="fa fa-square"></i> Fill the form with the <strong>silliest</strong> words</p>
+                    <p class="text-white"><i class="fa fa-square"></i> Click submit and get your own <strong>Crazy Story</strong></p>
                 <a href="{{ route('story.play') }}" class="btn btn-lg btn-pink">
                     Play Now!
                 </a>
