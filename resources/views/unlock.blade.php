@@ -1,5 +1,6 @@
-@extends('layouts.front')
+@extends('layouts.unlock')
 @section('title', 'Unlock more games')
+@section('overlay_class', 'overlay')
 
 @section('content')
 
@@ -12,7 +13,7 @@
                 </div>
                 <div class="row mt-5 my-auto mx-auto text-center">
                   <div class="to-lock" style="width:100%; text-align: center;">
-                   @foreach($stories->chunk(2) as $chunk)
+                   @foreach($stories->chunk(3) as $chunk)
                    <div class="row">
                         @foreach($chunk as $story)
                           <div class="col-md-4">
@@ -59,17 +60,16 @@ jQuery(document).ready(function ($) {
    $('.to-lock').sociallocker({
     demo: false,
     text:{
-       header: 'Over 100 Stories to choose from',
+       header: 'OVER 100 STORIES TO CHOOSE FROM',
        message: 'To unlock, perform any of the actions below'
     },
     theme: 'glass',
     overlap:{
-      mode:'transparence',
-      intensity: '0'
+      mode:'transparence'
     },
     facebook:{
        like:{
-          url: 'https://facebook.com/codulab',
+          url: 'https://facebook.com/weregames',
           title: 'Like WereyGames'
        }
     },
@@ -81,7 +81,7 @@ jQuery(document).ready(function ($) {
           title: 'Tweet'
        },
        follow:{
-          url: 'https://twitter.com/stanwarri',
+          url: 'https://twitter.com/wereygames',
           title: 'Follow Us'
        }
     },

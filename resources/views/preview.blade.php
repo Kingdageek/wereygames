@@ -14,8 +14,9 @@
 
                        {!! nl2br($formedStory->content) !!}
 
-                       <div class="text-center pt-2">
-                            <div id="share"></div>
+                       <div class="text-center mt-5">
+                            <div style="margin-bottom:-40px">Share on your story on</div>
+                            <div id="share" class="mt-5 mb-3"></div>
                             <a href="{{ route('story.play') }}" class="btn btn-lg btn-pink">
                                 TRY ANOTHER
                             </a>
@@ -31,6 +32,7 @@
 @section('page:scripts')
 <script type="text/javascript">
     $("#share").jsSocials({
+    text: "{{ $socialShare }} || Lmao you need to try this! Visit www.wereygames.com to create your own #WereyStory",
     showCount: false,
     showLabel: false,
     shares: [

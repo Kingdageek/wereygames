@@ -89,7 +89,7 @@ class StoryController extends Controller
         }, $formattedStoryContent);
 
         $formedStory = preg_replace_callback('/{(.+?)}/ix',function($match)use($storyFormFields){
-            return !empty($storyFormFields[$match[1]]) ? $storyFormFields[$match[1]] : $match[0];
+            return !empty($storyFormFields[$match[1]]) ? '<strong><u>'.$storyFormFields[$match[1]].'</u></strong>' : $match[0];
         }, $processedStoryContent);
 
         $slug = $this->generateSlug();

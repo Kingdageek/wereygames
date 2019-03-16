@@ -16,6 +16,7 @@
     @yield('page:styles')
 </head>
 <body>
+    <div class="overlay"></div>
     <section class="bh-white py-3 main-bg">
         <div class="container-fluid">
             <div class="row">

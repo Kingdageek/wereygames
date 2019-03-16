@@ -72,7 +72,9 @@
   padding: .5em .6em;
   color: #fff;
   -webkit-transition: background 200ms ease-in-out, border-color 200ms ease-in-out;
-          transition: background 200ms ease-in-out, border-color 200ms ease-in-out; }
+          transition: background 200ms ease-in-out, border-color 200ms ease-in-out;
+          font-size:10px;
+        }
   .jssocials-share-link:hover, .jssocials-share-link:focus, .jssocials-share-link:active {
     color: #fff; }
 

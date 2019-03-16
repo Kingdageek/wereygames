@@ -8,8 +8,7 @@
             <div class="col-md-8 mx-auto text-center">
                 <h1 class="text-white text-center" style="font-size:48px">
                     <span class="yellow-color">"</span>The funniest word-game you've ever
-                        <span class="yellow-color"><strong class="u-text-animation u-text-animation--typing"></strong></span>
-                    <span class="yellow-color">"</span>
+                        <span class="yellow-color"><strong class="u-text-animation u-text-animation--typing"></strong>"</span>
                 </h1>
             </div>
             <div class="col-md-8 mx-auto text-center">
@@ -35,7 +34,7 @@
     $(document).ready(function(){
  // initialization of text animation (typing)
     var typed = new Typed(".u-text-animation.u-text-animation--typing", {
-        strings: ["Tied.", "Spanked.", "Kissed.", "Swallowed.", "Played."],
+        strings: ['Tied.', 'Spanked.', 'Kissed.', 'Swallowed.', 'Played.'],
         typeSpeed: 60,
         loop: true,
         backSpeed: 25,

@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 mx-auto text-center text-white">
-                        <h2 class="display-4">{{ $story->title }}</h2>
+                        <h2>{{ $story->title }}</h2>
                         <p class="lead">
                             FILL THIS FORM, MAKE IT AS SILLY AS YOU CAN
                         </p>

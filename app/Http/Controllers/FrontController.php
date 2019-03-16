@@ -66,9 +66,12 @@ class FrontController extends Controller
 
         views($formedStory)->delayInSession(2)->record();
 
+        $socialShare = str_limit(strip_tags($formedStory->content),185);
+
         return view('preview', [
             'story' => $story,
-            'formedStory' => $formedStory
+            'formedStory' => $formedStory,
+            'socialShare' => $socialShare
         ]);
     }
 
