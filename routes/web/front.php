@@ -4,6 +4,10 @@ Route::match(['GET'], '/')
     ->name('front.index')
     ->uses('FrontController@index');
 
+Route::match(['GET'], '/about')
+    ->name('front.about')
+    ->uses('FrontController@about');
+
 Route::match(['GET', 'POST'], '/play')
     ->name('story.play')
     ->middleware('guestUser')
