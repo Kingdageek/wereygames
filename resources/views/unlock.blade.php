@@ -54,6 +54,7 @@ jQuery(document).ready(function ($) {
             dataType: 'json',
             success: function(output_string){
                 console.log('The content was unlocked via: ' + sender + "!");
+                window.location.href = 'stories';
             } // End of success function of ajax form
         }); // End of ajax call
     });
