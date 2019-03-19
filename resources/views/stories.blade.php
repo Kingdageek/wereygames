@@ -2,14 +2,14 @@
 @section('title', 'Select a story')
 
 @section('content')
-    <section class="py-7 main-bg">
+    <section class="py-7 main-bg mt-5">
             <div class="container">
                 <div class="row">
                     <div class="col-md-7 mx-auto text-center">
-                        <h2 class="text-capitalize">All Stories</h2>
+                        <h2 class="text-capitalize text-white">PICK A STORY</h2>
                     </div>
                 </div>
-                <div class="row mt-5 text-center">
+
                    @foreach($stories->chunk(3) as $chunk)
                    <div class="row">
                         @foreach($chunk as $story)
@@ -21,7 +21,7 @@
                           @endforeach
                     </div>
                     @endforeach
-                </div>
+
                 <div class="row">
                     {!! $stories->render() !!}
                 </div>

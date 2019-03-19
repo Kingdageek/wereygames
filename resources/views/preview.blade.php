@@ -15,7 +15,7 @@
                        {!! nl2br($formedStory->content) !!}
 
                        <div class="text-center mt-5">
-                            <div style="margin-bottom:-40px">Share on your story on</div>
+                            <div class="mb-2">Share on your story on</div>
                             <div class="mb-3">
                                 <!-- Sharingbutton Facebook -->
                                 <a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u={{ route('story.preview', $formedStory->slug) }}" target="_blank" aria-label="">
