@@ -108,6 +108,10 @@ class StoryController extends Controller
     {
         $guest = session()->get('guest');
 
+        if($guest->has_unlocked){
+            return redirect()->route('get.stories');
+        }
+
         if($request->isMethod('POST')){
             $guest->has_unlocked = true;
             $guest->save();
