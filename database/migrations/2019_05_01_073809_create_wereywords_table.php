@@ -27,6 +27,6 @@ class CreateWereyWordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('werey_words');
+        Schema::dropIfExists('wereywords');
     }
 }
