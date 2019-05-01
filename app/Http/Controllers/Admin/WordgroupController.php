@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\WereyWord;
+use App\Models\Wordgroup;
 use Illuminate\Http\Request;
 
-class WereyWordController extends Controller
+class WordgroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class WereyWordController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\WereyWord  $wereyWord
+     * @param  \App\Wordgroup  $wordgroup
      * @return \Illuminate\Http\Response
      */
-    public function show(WereyWord $wereyWord)
+    public function show(Wordgroup $wordgroup)
     {
         //
     }
@@ -52,10 +52,10 @@ class WereyWordController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\WereyWord  $wereyWord
+     * @param  \App\Wordgroup  $wordgroup
      * @return \Illuminate\Http\Response
      */
-    public function edit(WereyWord $wereyWord)
+    public function edit(Wordgroup $wordgroup)
     {
         //
     }
@@ -64,10 +64,10 @@ class WereyWordController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\WereyWord  $wereyWord
+     * @param  \App\Wordgroup  $wordgroup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, WereyWord $wereyWord)
+    public function update(Request $request, Wordgroup $wordgroup)
     {
         //
     }
@@ -75,10 +75,10 @@ class WereyWordController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\WereyWord  $wereyWord
+     * @param  \App\Wordgroup  $wordgroup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(WereyWord $wereyWord)
+    public function destroy(Wordgroup $wordgroup)
     {
         //
     }
