@@ -13,7 +13,7 @@ class CreateWereyWordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('werey_words', function (Blueprint $table) {
+        Schema::create('wereywords', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
