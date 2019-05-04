@@ -12,7 +12,7 @@ use App\Models\UserStory;
 use Validator;
 use Log;
 use Auth;
-
+use App\Models\Wordgroup;
 
 
 class StoryController extends Controller
@@ -77,6 +77,61 @@ class StoryController extends Controller
         return view('admin.story.create');
     }
 
+    public function storeStory(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required|unique:stories',
+            'content' => 'required',
+            'featured_image' => 'required|image'
+        ]);
+
+        if (preg_match_all('/{([^}]*)}/', $request->content, $matches)) {
+            $contentWordgroups = $matches[1];
+            foreach ($contentWordgroups as $contentWordgroup) {
+                $contentWordgroup = trim($contentWordgroup);
+
+                // check if match is not a Wordgroup
+                $wordgroup = Wordgroup::where('name', $contentWordgroup)->first();
+                if ( ! $wordgroup ) {
+                    return redirect()->back()
+                                    ->with('error', '<strong>' . $contentWordgroup . '</strong> is not a Wordgroup')
+                                    ->withInput($request->input());
+                }
+
+                // check if Wordgroup has at least 5 wereywords
+                if ( $wordgroup->wereywords->count() < 5 ) {
+                    return redirect()->back()
+                                    ->with('error', '<strong>' . $contentWordgroup . '</strong> Wordgroup has less than 5 Wereywords')
+                                    ->withInput($request->input());
+                }
+            }
+        }
+
+        $story = new Story();
+        $story->title = $request->title;
+        $story->content = $request->content;
+
+        // Handle uploaded image
+        $featured = $request->featured_image;
+        $randomKey = sha1(time() . microtime());
+        $extension = $featured->getClientOriginalExtension();
+        $fileName = $randomKey . '.' . $extension;
+        $destinationPath = 'uploads';
+        $upload_success = $featured->move($destinationPath, $fileName);
+        if ($upload_success) {
+            $story->featured_photo = 'uploads/'.$fileName;
+        }
+
+        // Persist
+        $story->save();
+        return redirect()->route('admin.stories')->with('success', 'Story successfully created');
+    }
+
+    public function createStory()
+    {
+        return view('admin.story.create');
+    }
+
     public function edit(Request $request, $id)
     {
         $story = Story::where('id', $id)->first();
@@ -122,6 +177,69 @@ class StoryController extends Controller
         return view('admin.story.edit', [
             'story' => $story,
         ]);
+    }
+
+    public function editStory(Story $story)
+    {
+        return view('admin.story.edit', compact('story'));
+    }
+
+    public function updateStory(Story $story, Request $request)
+    {
+        // Validation is make sure title is unique in the title column ignore
+        // the current story's title row
+        $this->validate($request, [
+            'title' => 'required|max:50|unique:stories,title,'. $story->id,
+            'content' => 'required',
+            'featured_image' => 'nullable|image'
+        ]);
+
+        if (preg_match_all('/{([^}]*)}/', $request->content, $matches)) {
+            $contentWordgroups = $matches[1];
+            foreach ($contentWordgroups as $contentWordgroup) {
+                $contentWordgroup = trim($contentWordgroup);
+
+                // check if match is not a Wordgroup
+                $wordgroup = Wordgroup::where('name', $contentWordgroup)->first();
+                if ( ! $wordgroup ) {
+                    return redirect()->back()
+                                    ->with('error', '<strong>' . $contentWordgroup . '</strong> is not a Wordgroup')
+                                    ->withInput($request->input());
+                }
+
+                // check if Wordgroup has at least 5 wereywords
+                if ( $wordgroup->wereywords->count() < 5 ) {
+                    return redirect()->back()
+                                    ->with('error', '<strong>' . $contentWordgroup . '</strong> Wordgroup has less than 5 Wereywords')
+                                    ->withInput($request->input());
+                }
+            }
+        }
+
+        $story->title = $request->title;
+        $story->content = $request->content;
+
+        if ( $request->hasFile('featured_image') ) {
+            // Delete the previous one
+            if ( file_exists($story->featured_photo) ) {
+                unlink($story->featured_photo);
+            }
+
+            // Handle uploaded image
+            $featured = $request->featured_image;
+            $randomKey = sha1(time() . microtime());
+            $extension = $featured->getClientOriginalExtension();
+            $fileName = $randomKey . '.' . $extension;
+            $destinationPath = 'uploads';
+            $upload_success = $featured->move($destinationPath, $fileName);
+            if ($upload_success) {
+                $story->featured_photo = 'uploads/'.$fileName;
+            }
+        }
+
+        // Persist
+        $story->save();
+        return redirect()->route('admin.stories')->with('success', 'Story successfully updated');
     }
 
     public function storyForm(Request $request, $id)
