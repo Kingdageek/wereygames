@@ -19,9 +19,11 @@
                 <h3 class="block-title">Edit Story - {{ $story->title }}</h3>
              </div>
             <div class="block-content">
-            <form action="{{ route('admin.story.edit', $story->id) }}" method="post" enctype="multipart/form-data">
+            {{-- <form action="{{ route('admin.story.edit', $story->id) }}" method="post" enctype="multipart/form-data"> --}}
+            <form action="{{ route('admin.stories.updateStory', $story->id) }}" method="post" enctype="multipart/form-data">
 
                 {{ csrf_field() }}
+                @method('PATCH')
 
                 <div class="form-group">
                     <label for="title">Title</label>
