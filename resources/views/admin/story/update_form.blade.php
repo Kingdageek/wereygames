@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Generate Story Form')
+@section('title', 'Update Story Form')
 @section('nav_class', 'page-header-modern')
 
 @section('content')
@@ -16,7 +16,7 @@
       @include('admin.partials._alerts')
         <div class="block">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Generate Story Form</h3>
+                <h3 class="block-title">Update Story Form</h3>
              </div>
             <div class="block-content">
             <form action="{{ route('admin.story.form.update', $story->id) }}" method="post" enctype="multipart/form-data">
@@ -25,6 +25,7 @@
 
                 @foreach($formInputs as $key => $input)
                 <div class="form-group">
+                    {{-- form_0_new_city becomes New city. The 'form_0_' part is trimmed off and the underscore is replaced with spaces --}}
                     <label for="title">{{ ucfirst(str_replace('_', ' ', ltrim($key, "form_'.$loop->index.'_"))) }}</label>
                     <input  type="text" class="form-control" name="{{ $key }}" value="{{ $input }}" required>
                 </div>

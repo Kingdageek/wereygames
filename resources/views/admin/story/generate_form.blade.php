@@ -24,10 +24,10 @@
 
                 {{ csrf_field() }}
 
-                @foreach($formInputs as $key => $input)
+                @foreach($formInputs as $key => $value)
                 <div class="form-group">
-                    <label for="title">{{ ucfirst($input) }}</label>
-                    <input  type="text" class="form-control" name="form_{{ $key }}_{{ preg_replace('/\s+/', '_', $input) }}" placeholder="Enter example placeholder" required>
+                    <label for="title">{{ ucfirst($value) }}</label>
+                    <input  type="text" class="form-control" name="form_{{ $key }}_{{ preg_replace('/\s+/', '_', $value) }}" placeholder="Enter example placeholder" required>
                 </div>
                 @endforeach
 
