@@ -192,4 +192,20 @@ class StoryController extends Controller
         return redirect()->back()->with('info', 'Story deleted successfully');
     }
 
+    public function destroy (Story $story)
+    {
+        // This also deletes all created user stories associated with
+        // this story.
+        // Register Eloquent relationship.
+        // One Story has Many UserStory s
+
+        if ( file_exists($story->featured_photo) ) {
+            unlink($story->featured_photo);
+        }
+        $userStory = UserStory::where('story_id', $story->id);
+        $userStory->delete();
+        $story->delete();
+        return redirect()->back()->with('status', 'Story deleted successfully');
+    }
+
 }
