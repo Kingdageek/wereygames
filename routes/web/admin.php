@@ -46,4 +46,32 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         ->name('admin.user.delete')
         ->uses('UserController@delete');
 
+    Route::group(['as'=>'admin.'], function() {
+
+        Route::get('/stories/create-story', 'StoryController@createStory')
+            ->name('stories.createStory');
+
+        Route::post('/stories/store-story', 'StoryController@storeStory')
+            ->name('stories.storeStory');
+
+        Route::get('/stories/{story}/edit-story', 'StoryController@editStory')
+            ->name('stories.editStory');
+
+        Route::patch('/stories/{story}/update-story', 'StoryController@updateStory')
+            ->name('stories.updateStory');
+
+        Route::delete('/stories/{story}', 'StoryController@destroy')
+            ->name('stories.destroy');
+
+        Route::get('/wereywords/create-from-file', 'WereywordController@createFromFile')
+            ->name('wereywords.fileCreate');
+
+        Route::post('/wereywords/store-from-file', 'WereywordController@storeFromFile')
+            ->name('wereywords.fileStore');
+
+        Route::resource('/wordgroups', 'WordgroupController');
+        Route::resource('/wereywords', 'WereywordController');
+    });
+
+
 });
