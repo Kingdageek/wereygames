@@ -130,6 +130,11 @@ class StoryController extends Controller
 
         if($request->isMethod('POST')){
            $inputFields = $request->except('_token');
+
+           // received $inputFields are converted to json and stored cos
+           // the fields will be generated on the fly from certain
+           // specifications in created story.
+
            $story->form = json_encode($inputFields);
            $story->save();
 
@@ -138,8 +143,16 @@ class StoryController extends Controller
 
         $content = $story->content;
         $formInputs = [];
+
+        // Basically match all occurences of that pattern in the story's content
+        // Pattern basically is find any open and closing curly braces, group
+        // everything within them then match every non-closing brace character
+
         if (preg_match_all('/{([^}]*)}/', $content, $matches)) {
             $formInputs = $matches[1]; //preg_replace('/\s+/', '_', $matches[1]);
+
+            // Remove any preceding and trailing whitespace from match
+            $formInputs = array_map('trim', $formInputs);
         }
 
         return view('admin.story.generate_form', [
@@ -167,6 +180,12 @@ class StoryController extends Controller
         $storyContent = $story->content;
         $contentFormInputs = [];
         if (preg_match_all('/{([^}]*)}/', $storyContent, $matches)) {
+            // To always trim user entered matches of preceding and trailing whitespaces
+            // Failure to do that could cause irregular behaviors
+            $matches[1] = array_map('trim', $matches[1]);
+
+            // Replace any whitespace character within matched strings in $matches[1]
+            // array with underscores
             $contentFormInputs = preg_replace('/\s+/', '_', $matches[1]);
         }
 
@@ -186,6 +205,11 @@ class StoryController extends Controller
 
     public function delete(Request $request, $id)
     {
+        // This also deletes all created user stories associated with
+        // this story.
+        // Register Eloquent relationship.
+        // One Story has Many UserStory s
+
         $story = Story::where('id', $id)->first();
         $userStory = UserStory::where('story_id', $story->id)->delete();
         $story->delete();
