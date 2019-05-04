@@ -41,6 +41,7 @@ class StoryController extends Controller
         $existingStoryInputs = json_decode($story->form, true);
         $formInputs = array_merge($contentForm, $existingStoryInputs);
 
+        // Record a view after 2 minutes
         views($story)->delayInSession(2)->record();
 
         return view('play', [
