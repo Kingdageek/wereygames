@@ -19,7 +19,8 @@
                 <h3 class="block-title">New Story</h3>
              </div>
             <div class="block-content">
-            <form action="{{ route('admin.story.create') }}" method="post" enctype="multipart/form-data">
+            {{-- <form action="{{ route('admin.story.create') }}" method="post" enctype="multipart/form-data"> --}}
+            <form action="{{ route('admin.stories.storeStory') }}" method="post" enctype="multipart/form-data">
 
                 {{ csrf_field() }}
 
@@ -30,7 +31,7 @@
 
                 <div class="form-group">
                     <label>Content</label>
-                    <textarea class="form-control" name="content" rows="10" placeholder="Content.." required></textarea>
+                    <textarea class="form-control" name="content" rows="10" placeholder="Content.." required>{{ old('content') }}</textarea>
                 </div>
 
                 <div class="form-group">
