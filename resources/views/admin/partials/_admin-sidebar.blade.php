@@ -25,7 +25,7 @@
 
                                 <div class="content-header-item">
                                     <a class="link-effect font-w700" href="{{ route('admin.dashboard') }}">
-                                        <span class="font-size-xl text-dual-primary-dark">Warey Games</span>
+                                        <span class="font-size-xl text-dual-primary-dark">{{ config('app.name', 'Werey Games') }}</span>
                                     </a>
                                 </div>
                                 <!-- END Logo -->
@@ -35,7 +35,10 @@
                         <!-- END Side Header -->
 
                         <div class="content-side content-side-full bg-body-light">
-                            <a href="{{ route('admin.story.create') }}" class="btn btn-sm btn-block btn-hero btn-alt-primary">
+                            {{-- <a href="{{ route('admin.story.create') }}" class="btn btn-sm btn-block btn-hero btn-alt-primary">
+                                <i class="si si-docs mr-5"></i> New Story
+                            </a> --}}
+                            <a href="{{ route('admin.stories.createStory') }}" class="btn btn-sm btn-block btn-hero btn-alt-primary">
                                 <i class="si si-docs mr-5"></i> New Story
                             </a>
                         </div>
@@ -54,6 +57,14 @@
                                 <li>
                                     <a class="active" href="{{ route('admin.users') }}">
                                     <i class="si si-users"></i><span class="sidebar-mini-hide">Admin Users</span></a>
+                                </li>
+                                <li>
+                                    <a class="active" href="{{ route('admin.wordgroups.index') }}">
+                                    <i class="si si-docs"></i><span class="sidebar-mini-hide">Wordgroups</span></a>
+                                </li>
+                                <li>
+                                    <a class="active" href="{{ route('admin.wereywords.index') }}">
+                                    <i class="si si-docs"></i><span class="sidebar-mini-hide">Wereywords</span></a>
                                 </li>
                             </ul>
                         </div>
