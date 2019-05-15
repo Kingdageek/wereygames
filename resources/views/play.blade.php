@@ -20,11 +20,11 @@
                            {{ csrf_field() }}
 
                             <div class="row">
-                                @foreach($formInputs as $key => $input)
+                                @foreach($formInputs as $key => $formInput)
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="{{ $key }}"><strong>{{ ucfirst(str_replace('_', ' ', ltrim($key, "form_'.$loop->index.'_"))) }}</strong></label>
-                                        <input type="text" id="{{ $key }}" name="{{ $key }}" class="form-control" placeholder="{{ $input }}" required>
+                                        <label for="{{ $key }}"><strong>{{ $formInput['wordgroup'] }}</strong></label>
+                                        <input type="text" id="{{ $key }}" name="{{ $key }}" class="form-control" placeholder="{{ $formInput['placeholder'] }}" required>
                                     </div>
                                 </div>
                                 @endforeach
