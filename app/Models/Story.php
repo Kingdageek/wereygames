@@ -40,7 +40,7 @@ class Story extends Model implements ViewableContract
         if (!$featured_image || is_null($featured_image)) {
             $url = url('assets/front/img/work-2.jpg');
         }else{
-            $url = url('uploads/' . $featured_image);
+            $url = url($featured_image);
         }
 
         return $url;
