@@ -173,7 +173,7 @@
                                         <div>
                                             {{-- Rounded switch  --}}
                                             <label class="switch" title="Click to toggle wereywords hint">
-                                                <input type="checkbox" id="hint" onchange="javascript:loadHints( '{{ $key }}', '{{ $formInput['wordgroup'] }}', '{{ $loop->index }}' )">
+                                                <input type="checkbox" id="hint_{{ $key }}" onchange="javascript:loadHints( '{{ $key }}', '{{ $formInput['wordgroup'] }}', '{{ $loop->index }}' )">
                                                 <span class="slider round"></span>
                                                 <div class="loader"></div>
                                             </label>
@@ -307,10 +307,10 @@ function loadHints (fieldName, wordgroupName, currentIteration)
     let hintToggle = $('#hint');
     let parentDiv = $('#div_' + fieldName);
     let loader = $('.loader')
+    let hintIdChecked = $('#hint_' + fieldName + ":checked")
     loader.fadeIn()
-    //alert($('#hint:checked').length)
 
-    if ($("#hint:checked").length == 0) {
+    if (hintIdChecked.length == 0) {
         let inputString = '<input type="text" id="'+ fieldName +'" name="'+ fieldName +'" class="form-control bord-round font-massive" placeholder="Type your own silly '+ wordgroupName.toLowerCase() +'" required>'
         parentDiv.html( inputString )
         loader.fadeOut()
