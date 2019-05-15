@@ -22,6 +22,11 @@
                     <a href="{{ route('front.index') }}" style="padding-left: 30px; padding-top: 30px">
                         <img src="{{ asset('assets/front/img/logo-white.png') }}" width="130px">
                     </a>
+                    {{-- <div class="text-center mt-3" style="margin-right:30px">
+                        <a href="@yield( 'play-link', route('story.suggestionsPlay', [ 'story'=>$story->id ]) )" class="btn btn-pink" data-size="sm" data-effect-parameter="horz-side" title="@yield( 'play-title', 'Play with our silly word suggestions' )">
+                            @yield('play-btn-text', 'Use suggestions')
+                        </a>
+                    </div> --}}
                 </div>
             </div>
         </div>
