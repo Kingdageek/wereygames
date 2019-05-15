@@ -19,15 +19,15 @@
                 <h3 class="block-title">Update Story Form</h3>
              </div>
             <div class="block-content">
-            <form action="{{ route('admin.story.form.update', $story->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.story.form.update', $story->id) }}" method="post">
 
                 {{ csrf_field() }}
 
-                @foreach($formInputs as $key => $input)
+                @foreach($formInputs as $key => $formInput)
                 <div class="form-group">
                     {{-- form_0_new_city becomes New city. The 'form_0_' part is trimmed off and the underscore is replaced with spaces --}}
-                    <label for="title">{{ ucfirst(str_replace('_', ' ', ltrim($key, "form_'.$loop->index.'_"))) }}</label>
-                    <input  type="text" class="form-control" name="{{ $key }}" value="{{ $input }}" required>
+                    <label for="title">{{ $formInput['wordgroup'] }}</label>
+                    <input  type="text" class="form-control" name="{{ $key }}" value="{{ $formInput['placeholder'] }}" required>
                 </div>
                 @endforeach
 
