@@ -85,11 +85,13 @@ class StoryController extends Controller
             'featured_image' => 'required|image'
         ]);
 
-        if (preg_match_all('/{([^}]*)}/', $request->content, $matches)) {
-            $contentWordgroups = $matches[1];
-            foreach ($contentWordgroups as $contentWordgroup) {
-                $contentWordgroup = trim($contentWordgroup);
+        $story = new Story();
+        $story->title = ucfirst($request->title);
+        $story->content = $request->content;
 
+        if (preg_match_all('/{([^}]*)}/', $request->content, $matches)) {
+            $contentWordgroups = array_map('trim', $matches[1]);
+            foreach ($contentWordgroups as $contentWordgroup) {
                 // check if match is not a Wordgroup
                 $wordgroup = Wordgroup::where('name', $contentWordgroup)->first();
                 if ( ! $wordgroup ) {
@@ -105,26 +107,67 @@ class StoryController extends Controller
                                     ->withInput($request->input());
                 }
             }
+            // autogenerate form
+            $story->form = $this->generateFormJson($contentWordgroups);
         }
 
-        $story = new Story();
-        $story->title = $request->title;
-        $story->content = $request->content;
-
         // Handle uploaded image
-        $featured = $request->featured_image;
+        $story->featured_photo = $this->getImagePath( $request->featured_image ) ?? '';
+
+        // Persist
+        $story->save();
+        return redirect()->route('admin.stories')->with('success', 'Story successfully created');
+    }
+
+    private function generateFormJson ($matchedWordgroups)
+    {
+        // $matchedWordgroups is of form - [ 0 => 'noun', 1 => 'type of liquid' ]
+        /* to store our array of form - [ 'form_0_type_of_liquid' => [
+            'wordgroup'=>'Type of liquid',
+            'placeholder'=>'randomly generated placeholder'
+            ]
+        ]
+            We're basically trying to do most of the heavy lifting on the admin creation end
+            to help make the user playing end be slighly more performant.
+        */
+        $formArray = array();
+
+        // to store wordgroup wereyword names to try to prevent a word appearing > once
+        $wereywordNames = array();
+
+        foreach ($matchedWordgroups as $key => $wordgroupName) {
+            $wordgroup = Wordgroup::with([ 'wereywords' => function ($query) use ($wereywordNames) {
+                $query->whereNotIn('name', $wereywordNames)->inRandomOrder()->first();
+            } ])->whereName($wordgroupName)->first();
+
+            // We can use str_replace not preg_replace cos we're pretty sure it's a wordgroup
+            $underscoredWordgroupName = str_replace(' ', '_', $wordgroupName);
+            $wereyword = $wordgroup->wereywords->first()->name;
+
+            $index = 'form_'. $key . '_'. $underscoredWordgroupName;
+            // attach to formArray
+            $formArray[$index] = [
+                'wordgroup' => ucfirst($wordgroupName),
+                'placeholder' => $wereyword
+            ];
+
+            // Note the name
+            $wereywordNames[] = $wereyword;
+        }
+        return json_encode($formArray);
+    }
+
+    private function getImagePath ($featured)
+    {
         $randomKey = sha1(time() . microtime());
         $extension = $featured->getClientOriginalExtension();
         $fileName = $randomKey . '.' . $extension;
         $destinationPath = 'uploads';
         $upload_success = $featured->move($destinationPath, $fileName);
         if ($upload_success) {
-            $story->featured_photo = 'uploads/'.$fileName;
+            $path = 'uploads/'.$fileName;
+            return $path;
         }
-
-        // Persist
-        $story->save();
-        return redirect()->route('admin.stories')->with('success', 'Story successfully created');
     }
 
     public function createStory()
@@ -195,10 +238,8 @@ class StoryController extends Controller
         ]);
 
         if (preg_match_all('/{([^}]*)}/', $request->content, $matches)) {
-            $contentWordgroups = $matches[1];
+            $contentWordgroups = array_map('trim', $matches[1]);
             foreach ($contentWordgroups as $contentWordgroup) {
-                $contentWordgroup = trim($contentWordgroup);
-
                 // check if match is not a Wordgroup
                 $wordgroup = Wordgroup::where('name', $contentWordgroup)->first();
                 if ( ! $wordgroup ) {
@@ -214,9 +255,11 @@ class StoryController extends Controller
                                     ->withInput($request->input());
                 }
             }
+            // autogenerate new form
+            $story->form = $this->generateFormJson($contentWordgroups);
         }
 
-        $story->title = $request->title;
+        $story->title = ucfirst($request->title);
         $story->content = $request->content;
 
         if ( $request->hasFile('featured_image') ) {
@@ -224,20 +267,10 @@ class StoryController extends Controller
             if ( file_exists($story->featured_photo) ) {
                 unlink($story->featured_photo);
             }
-
             // Handle uploaded image
-            $featured = $request->featured_image;
-            $randomKey = sha1(time() . microtime());
-            $extension = $featured->getClientOriginalExtension();
-            $fileName = $randomKey . '.' . $extension;
-            $destinationPath = 'uploads';
-            $upload_success = $featured->move($destinationPath, $fileName);
-            if ($upload_success) {
-                $story->featured_photo = 'uploads/'.$fileName;
-            }
+            $story->featured_photo = $this->getImagePath($request->featured_image) ?? '';
         }
 
-        // Persist
         $story->save();
         return redirect()->route('admin.stories')->with('success', 'Story successfully updated');
     }
@@ -289,6 +322,15 @@ class StoryController extends Controller
 
         if($request->isMethod('POST')){
            $inputFields = $request->except('_token');
+
+           $index = 0;
+           foreach($inputFields as $key => $field) {
+               $inputFields[$key] = array (
+                    'wordgroup' => ucfirst(str_replace('_', ' ', ltrim($key, 'form_'. $index .'_'))),
+                    'placeholder' => trim($field)
+               );
+               $index ++;
+           }
            $story->form = json_encode($inputFields);
            $story->save();
 
