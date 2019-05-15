@@ -13,6 +13,14 @@ Route::match(['GET', 'POST'], '/play')
     ->middleware('guestUser')
     ->uses('StoryController@play');
 
+Route::get('/play-with-suggestions/{story}', 'StoryController@playWithSuggestions')
+    ->middleware('guestUser')
+    ->name('story.suggestionsPlay');
+
+Route::get('/game/load-hints', 'StoryController@loadHints')
+    ->middleware('guestUser')
+    ->name('game.loadHints');
+
 Route::match(['GET', 'POST'], '/unlock')
     ->name('story.unlock')
     ->middleware('guestUser')
