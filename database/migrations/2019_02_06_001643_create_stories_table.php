@@ -18,7 +18,8 @@ class CreateStoriesTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->text('featured_photo')->nullable();
-            $table->json('form')->nullable();
+            // $table->json('form')->nullable();
+            $table->text('form')->nullable();
             $table->timestamps();
         });
     }
