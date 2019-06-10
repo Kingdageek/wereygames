@@ -69,6 +69,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::post('/wereywords/store-from-file', 'WereywordController@storeFromFile')
             ->name('wereywords.fileStore');
 
+        Route::post('/users/{user}/permissions', 'UserController@togglePermissions')
+            ->name('users.permissions');
+
         Route::resource('/wordgroups', 'WordgroupController');
         Route::resource('/wereywords', 'WereywordController');
     });
