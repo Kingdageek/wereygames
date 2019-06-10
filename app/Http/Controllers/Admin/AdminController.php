@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Validator;
 use App\Models\Story;
 use App\Models\UserStory;
+use App\Models\Wereyword;
+use App\Models\Wordgroup;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,6 +25,8 @@ class AdminController extends Controller
 
         $data = [
             'totalStories' => Story::count(),
+            'totalWordgroups' => Wordgroup::count(),
+            'totalWereywords' => Wereyword::count(),
             'totalUserStories' => UserStory::count(),
             'totalViewsStories' => views()->countByType(Story::class),
             'totalViewsUserStories' => views()->countByType(UserStory::class)

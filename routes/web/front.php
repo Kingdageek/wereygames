@@ -17,9 +17,9 @@ Route::get('/play-with-suggestions/{story}', 'StoryController@playWithSuggestion
     ->middleware('guestUser')
     ->name('story.suggestionsPlay');
 
-Route::get('/game/load-hints', 'StoryController@loadHints')
+Route::get('/game/get-hints', 'StoryController@getHints')
     ->middleware('guestUser')
-    ->name('game.loadHints');
+    ->name('game.getHints');
 
 Route::match(['GET', 'POST'], '/unlock')
     ->name('story.unlock')
