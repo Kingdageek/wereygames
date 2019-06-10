@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-
+        $this->middleware('admin');
     }
 
     public function index()
@@ -84,4 +84,10 @@ class UserController extends Controller
         return redirect()->route('admin.users')->with('success', 'Admin user created deleted');
     }
 
+    public function togglePermissions(User $user)
+    {
+        $user->is_admin = $user->is_admin ? 0 : 1;
+        $user->save();
+        return redirect()->back()->with('success', 'Admin permissions changed successfully');
+    }
 }
