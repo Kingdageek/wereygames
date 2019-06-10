@@ -224,7 +224,7 @@ class StoryController extends Controller
         ]);
     }
 
-    public function loadHints(Request $request)
+    public function getHints(Request $request)
     {
         $fieldName = $request->fieldName;
         $wordgroupName = $request->wordgroupName;
@@ -235,17 +235,24 @@ class StoryController extends Controller
             $query->inRandomOrder();
         }])->whereName($wordgroupName)->first();
 
-        $wereywords = $wordgroup->wereywords->take(5);
+        // Take 5 elements and retrieve only the 'name' columns in format ['name' => 'sweaty balls']
+        $wereywords = $wordgroup->wereywords->take(5)->map->only('name');
 
-        $hugeString = '<select name="'. $fieldName . '" id="'. $fieldName .'" class="form-control bord-round font-massive" style="height: calc(3.4rem + 6px)" required>';
+        // dd($wereywords);
 
-        foreach($wereywords as $wereyword) {
-            $hugeString = $hugeString .
-            '<option value="'. $wereyword->name .'">'. $wereyword->name .'</option>';
-        }
-        $hugeString = $hugeString . '<select>';
+        return $wereywords->toJson();
 
-        return $hugeString;
+        // return response()->json($wereywords); // takes an array not a collection.
+
+        // $hugeString = '<select name="'. $fieldName . '" id="'. $fieldName .'" class="form-control bord-round font-massive" style="height: calc(3.4rem + 6px)" required>';
+
+        // foreach($wereywords as $wereyword) {
+        //     $hugeString = $hugeString .
+        //     '<option value="'. $wereyword->name .'">'. $wereyword->name .'</option>';
+        // }
+        // $hugeString = $hugeString . '<select>';
+
+        // return $hugeString;
     }
 
     public function generateSlug() {
