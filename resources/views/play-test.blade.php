@@ -2,22 +2,6 @@
 @section('title', $story->title)
 @section('page:styles')
 <style>
-{{-- #regForm {
-    background-color: #ffffff;
-    margin: 100px auto;
-    padding: 40px;
-    width: 70%;
-    min-width: 300px;
-  } --}}
-
-  /* Style the input fields */
-  {{-- input {
-    padding: 10px;
-    width: 100%;
-    font-size: 17px;
-    font-family: Raleway;
-    border: 1px solid #aaaaaa;
-  } --}}
 
   /* Mark input boxes that gets an error on validation: */
   input.invalid {
@@ -318,14 +302,25 @@ function loadHints (fieldName, wordgroupName, currentIteration)
     }
 
     $.get(
-        "{{ route('game.loadHints') }}",
+        "{{ route('game.getHints') }}",
         {
             fieldName: fieldName,
             wordgroupName: wordgroupName
         },
         function (data) {
             // debugger
-            parentDiv.html(data)
+            hugeString = '<select name="' + fieldName + '" id="'+ fieldName +'" class="form-control bord-round font-massive" style="height: calc(3.4rem + 6px)" required>';
+            // Turn JSON to JS Array of Objects
+            data = JSON.parse(data);
+
+            for(i = 0; i < data.length; i++) {
+                hugeString = hugeString +
+                '<option value="'+ data[i].name +'">'+ data[i]['name'] +'</option>';
+            }
+
+            hugeString = hugeString + '<select>';
+
+            parentDiv.html(hugeString)
             loader.fadeOut()
         }
     )
