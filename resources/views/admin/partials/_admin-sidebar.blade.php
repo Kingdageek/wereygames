@@ -54,10 +54,12 @@
                                     <a class="active" href="{{ route('admin.stories') }}">
                                     <i class="si si-docs"></i><span class="sidebar-mini-hide">Stories</span></a>
                                 </li>
+                                @if ( auth()->user()->is_admin )
                                 <li>
                                     <a class="active" href="{{ route('admin.users') }}">
                                     <i class="si si-users"></i><span class="sidebar-mini-hide">Admin Users</span></a>
                                 </li>
+                                @endif
                                 <li>
                                     <a class="active" href="{{ route('admin.wordgroups.index') }}">
                                     <i class="si si-docs"></i><span class="sidebar-mini-hide">Wordgroups</span></a>
