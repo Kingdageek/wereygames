@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'adminer@wareygames.com',
             'password' => bcrypt('hyt2019'),
             'remember_token' => str_random(10),
+            'is_admin' => 1
         ]);
     }
 }
