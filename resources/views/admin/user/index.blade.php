@@ -23,6 +23,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Permissions</th>
                             <th class="text-center" style="width: 100px;">Actions</th>
                         </tr>
                     </thead>
@@ -31,12 +32,23 @@
                         <tr>
                             <td class="font-w600">{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>
+                                <form action="{{ route('admin.users.permissions', ['id' => $user->id]) }}" method="POST" onclick="confirm('Sure to change this user\'s permissions?') ? '' : event.preventDefault()">
+                                    @csrf
+                                    @if ($user->is_admin)
+                                        <input type="submit" value="Remove permissions" class="btn btn-sm btn-danger">
+                                    @else
+                                        <input type="submit" value="Make admin" class="btn btn-sm btn-primary">
+                                    @endif
+                                </form>
+                            </td>
                             <td class="text-center">
                                 <div class="btn-group">
                                     <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" data-original-title="Edit">
                                         <i class="fa fa-pencil"></i> Edit
                                     </a>
-                                    @if($user->id !== 1)
+                                    {{--  To make sure the authenticated user cannot delete himself  --}}
+                                    @if($user->id !== auth()->id())
                                     <a href="{{ route('admin.user.delete', $user->id) }}" class="btn btn-sm btn-danger" data-toggle="tooltip" data-original-title="Manage Form">
                                         <i class="fa fa-pencil"></i> Delete
                                     </a>
