@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\Viewable;
 use CyrildeWit\EloquentViewable\Contracts\Viewable as ViewableContract;
+use App\Models\Wereyimage;
 
 class Story extends Model implements ViewableContract
 {
@@ -44,5 +45,10 @@ class Story extends Model implements ViewableContract
         }
 
         return $url;
+    }
+
+    public function wereyimage()
+    {
+        return $this->belongsTo(Wereyimage::class);
     }
 }
