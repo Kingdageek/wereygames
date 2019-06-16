@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="row mt-5">
                     <div class="col-md-5">
-                        <img src="{{ $story->featured_image }}" class="img-fluid d-block mx-auto">
+                        <img src="{{ asset($story->wereyimage->path) }}" class="img-fluid d-block mx-auto">
                     </div>
                     <div class="col-md-6 ml-auto">
                         <h2 class="text-capitalize">{{ strtoupper($story->title) }}</h2>
