@@ -34,7 +34,7 @@
                     <tbody>
                         @foreach($stories as $story)
                         <tr>
-                            <td><img src="{{ asset($story->featured_photo) }}" alt="{{ $story->title }}" style="width:100px;height:100px"></td>
+                            <td><img src="{{ asset($story->wereyimage->path) }}" alt="{{ $story->title }}" style="width:100px;height:100px"></td>
                             <td class="font-w600">{{ $story->title }}</td>
                             <td class="font-w600">{{ $story->created_at->toFormattedDateString() }}</td>
                             <td class="text-center">
