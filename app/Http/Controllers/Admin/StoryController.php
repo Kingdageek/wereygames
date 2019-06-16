@@ -387,9 +387,10 @@ class StoryController extends Controller
         // Register Eloquent relationship.
         // One Story has Many UserStory s
 
-        if ( file_exists($story->featured_photo) ) {
-            unlink($story->featured_photo);
-        }
+        // Do not unlink anything
+        // if ( file_exists($story->featured_photo) ) {
+        //     unlink($story->featured_photo);
+        // }
         $userStory = UserStory::where('story_id', $story->id);
         $userStory->delete();
         $story->delete();
