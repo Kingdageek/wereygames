@@ -563,3 +563,7 @@ div.blue{
 .cust-fade {
     transition: opacity .3s ease-in-out;
 }
+.form-fit {
+    width: 75%;
+    margin: 0 auto;
+}

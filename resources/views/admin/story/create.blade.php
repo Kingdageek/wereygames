@@ -14,9 +14,9 @@
   </h2>
 
   <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-12">
       @include('admin.partials._alerts')
-        <div class="block">
+        <div class="block form-fit">
             <div class="block-header block-header-default">
                 <h3 class="block-title">New Story</h3>
              </div>
