@@ -72,8 +72,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::post('/users/{user}/permissions', 'UserController@togglePermissions')
             ->name('users.permissions');
 
+        Route::post('/wereyimages/process', 'WereyimageController@process')
+            ->name('wereyimages.process');
+
         Route::resource('/wordgroups', 'WordgroupController');
         Route::resource('/wereywords', 'WereywordController');
+        Route::resource('/wereyimages', 'WereyimageController');
     });
 
 
