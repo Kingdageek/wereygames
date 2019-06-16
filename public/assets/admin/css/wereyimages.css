@@ -1,0 +1,565 @@
+body{
+ margin:0;
+ font-family: 'Open Sans', sans-serif;
+ background:#fafbfd;
+}
+*{
+    outline:none;
+}
+p{
+    font-family: Arial;
+    font-size:14px;
+    line-height:2em;
+    color:#777;
+    text-shadow:0px 1px 0px #fff;
+}
+.riht{
+    width:97%;
+    height:auto;
+    float:right;
+    margin-top:100px;
+    margin-right:30px;
+}
+.inA
+{
+    width:auto;
+    margin:10px 40px;
+    height:auto;
+    overflow: hidden;
+    padding-bottom: 100px;
+}
+.inA h1{
+    font-weight:100;
+    margin-top:0px;
+    margin-bottom:0px;
+    width:72%;
+    COLOR:#444;
+    padding-bottom:20px;
+    border-bottom:1px solid #eee;
+    font-size:33px !important;
+}
+
+.inA button
+{
+    background:#47bac1 !important;
+    color:#fff;
+    border:2px solid #47bac1;
+    border-radius:4px;
+    font-size:10px;
+    padding:4px 14px;
+    height:40px;
+    margin:20px 0px;
+    text-transform:uppercase;
+    font-weight:800;
+    cursor:pointer;
+    letter-spacing: 0.7px;
+    box-shadow:6px 6px 20px rgba(0,0,0,.1);
+    transition:all 0.5s ease;
+    transform:scale(1.1);
+}
+.inA button:hover{
+    background:#ffffff;
+    border:2px solid #47bac1;
+    color:#47bac1;
+    transform:scale(1.1);
+}
+.inA button.edit{
+    background:#f6f6f6;
+    border:2px solid #47bac1;
+    color:#47bac1;
+    margin-left:auto;
+}
+.whiteModal{
+    width:100%;
+    height:100%;
+    display:none;
+    position: fixed;
+}
+.whiteModalBg{
+    width:100%;
+    height:100%;
+    background:absolute;
+    background:rgba(0,0,0,.7);
+    cursor:pointer;
+}
+.whiteModalIn{
+    width:55%;
+    height:auto;
+    position: absolute;
+    left:0;right:0;
+    top:10%;
+    margin:0 auto;
+    transition: all 0.5s ease;
+    transform:scale(1);
+    background:#fff;
+    border-radius:4px;
+    box-shadow:0px 0px 70px rgba(0,0,0,.3);
+}
+.bgO{
+    background-position: -50px 0px;
+}
+.whiteModalIn h2{
+    font-weight:100;
+    margin:5% 6%;
+}
+.whiteModalIn .skills{
+    height:auto;
+    padding-bottom:15px;
+    margin-top:20px;
+    overflow:hidden;
+}
+.inRole{
+    width:88%;
+    height:220px;
+    margin:0 auto;
+    display:flex;
+}
+.inForm{
+    width:70%;
+    height:200px;
+}
+.inForm label{
+    display:block;
+    margin-bottom:10px;
+}
+.whiteModal input{
+    width:85%;
+    font-size:14px;
+    padding:15px 13px;
+    border-radius:5px;
+    border:1px solid #ddd;
+    margin-bottom:20px;
+    box-shadow:2px 2px 10px rgba(0,0,0,.07);
+}
+.whiteModal input:focus
+{
+    border:1px solid #47bac188;
+    border-left:3px solid #47bac1;
+}
+.whiteModal textarea{
+    width:85%;
+    font-size:14px;
+    padding:12px 13px;
+    border-radius:5px;
+    border:1px solid #ddd;
+    margin-bottom:20px;
+    height:100px;
+    box-shadow:2px 2px 10px rgba(0,0,0,.07);
+}
+
+.whiteModal textarea:focus
+{
+    border:1px solid #47bac188;
+}
+.inImage{
+    width:200px;
+    height:200px;
+    /* background:url(../images_roles/collage.jpg); */
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius:5px;
+    box-shadow:2px 2px 20px rgba(0,0,0,.5);
+}
+.inErr{
+    border:2px solid #d88;
+}
+.inImage button, .cdx{
+    transition: all 0.4s ease;
+}
+.inImage button{
+    cursor:pointer;
+    transform:scale(1);
+    color:#fff;
+    background:#222;
+    border:2px solid #999;
+    padding:10px 20px;
+    box-shadow:3px 3px 10px rgba(0,0,0,.4);
+    margin:40% auto;
+    display:block;
+    border-radius:4px;
+}
+.inImage button:hover{
+    transform: scale(1.1);
+}
+.cdx{
+    width:100%;
+    border-radius:inherit;
+    height:100%;
+    background:rgba(0,0,0,.52);
+    padding-top:1px;
+    box-sizing: border-box;
+}
+.cdx:hover{
+    background:rgba(0,0,0,.42);
+}
+p.skl2{
+    margin:0 6%;
+    border:none;
+    padding-top:0;
+    padding-left:0;
+    padding-bottom:10px;
+}
+.skl2 a{
+        color:#47bac1;
+        font-weight:700;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size:12px;
+}
+button.saveRole{
+    background:#47bac1;
+    color:#fff;
+    border:2px solid #47bac1;
+    border-radius:4px;
+    padding:13px 30px;
+    margin:20px 6%;
+    text-transform:uppercase;
+    font-weight:800;
+    cursor:pointer;
+    letter-spacing: 0.7px;
+    box-shadow:6px 6px 20px rgba(0,0,0,.1);
+    transition:all 0.5s ease;
+    transform:scale(1);
+    float:right;
+}
+button.saveRole:hover{
+    transform: scale(1.1);
+}
+.xclose
+{
+    position:absolute;
+    right:2%;
+    top:0%;
+    font-weight:900;
+    cursor:pointer;
+}
+a.moreX
+{
+    border: 2px solid #47bac1;
+    color: #47bac1;
+    /* color: #fff; */
+    float: right;
+    border-radius: 4px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,.14);
+    padding: 5px 20px;
+    margin: 1px 0px 15px;
+    text-shadow: none;
+    font-size: 11px;
+}
+hr{
+width:auto;
+margin:0 6%;
+}
+.skillsAdd{
+    width:auto;
+    height:auto;
+    margin:0 6%;
+    display:none;
+    padding-bottom:20px;
+}
+.skillsAdd input{
+    width:50%;
+    padding:10px 20px;
+}
+.skillsAdd input::-webkit-input-placeholder, .whiteModal textarea::-webkit-input-placeholder
+{
+    color:#bbb;
+}
+.skillsAdd .ti-angle-right{
+    margin:-30px;
+    font-size:13px;
+}
+.skillsAdd h3{
+    font-size:14px;
+    margin-top:30px;
+    font-weight:500;
+}
+.skillsAdd .miniCourse{
+    height: 67px;
+}
+.skillsAdd .miniCourse .imgg {
+    width: 100px;
+    height: 67px;
+}
+.skillsAdd .miniCourse h4 {
+    font-size: 12px;
+    font-weight: 500;
+    color:#444;
+    margin: 8px 20px 3px 20px;
+}
+.skillsAdd .miniCourse a {
+    color: #47bac1;
+    display: block;
+    margin: 0px 20px;
+    float:right;
+    font-size: 12px;
+    text-decoration: none;
+}
+.topper{
+    top:-3%;
+    transform: scale(0.9);
+}
+.blur{
+    filter:blur(3px);
+}
+.imagesload{
+    width:40%;
+    display:none;
+    height:auto;
+    background:#fff;
+    box-shadow:0px 0px 60px rgba(0,0,0,.3);
+    position:absolute;
+    border-radius:5px;
+    top:14%;
+    left:0;right:0;
+    padding:20px 40px;
+    margin:0 auto;
+    z-index:9999;
+}
+.imagesload h2{
+    font-weight:100;
+    margin-bottom:10px;
+}
+.imagesload p{
+    margin:2px 0px 20px;
+}
+.whiteModal input::-webkit-input-placeholder{
+    color:#aaa;
+}
+.imagesload span.ti-search{
+    margin-left:-30px;
+}
+.imagesload input{
+    width:94%;
+}
+.imagesLoadx{
+    width:100%;
+    height:auto;
+    display:flex;
+    margin-bottom:10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x:hidden;
+}
+.zoomO{
+    animation:ease-in-out 3s;
+    animation-name:zoomO;
+    transform:scale(1);
+    opacity:1;
+    animation-duration:0.4s;
+    animation-fill-mode: forwards;
+}
+@keyframes zoomO{
+    to{
+        transform:scale(1.5);
+        opacity:0;
+    }
+}
+.imagesLoadx > div{
+    flex: 1 0 20%;
+    width:124px;
+    height:120px;
+    border-radius:4px;
+    box-sizing: border-box;
+    padding:30px 0px;
+    max-width:124px;
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right:2%;
+    margin-bottom:10px;
+    cursor:pointer;
+    transform:scale(1);
+    transition:all 0.4s ease;
+}
+.imagesLoadx > div:hover{
+    transform:scale(0.9);
+}
+
+div.uploadImg{
+    width:120px;
+    height:120px;
+    border-radius:4px;
+    border:1px solid #bbb;
+    box-shadow: 2px 2px 20px rgba(0,0,0,.1);
+    background:#f5f5f5;
+    text-align:center;
+    box-sizing: border-box;
+    padding:30px 0px;
+    color:#444;
+}
+.uploadImg span{
+    font-size:23px;
+}
+.uploadImg p{
+    color:#666;
+    font-weight:900;
+    font-size:12px;
+}
+button:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+}
+input.errorinput{
+    border:1px solid #d88;
+    border-left:3px solid #d88;
+}
+.whiteModalIn label{
+    display: block;
+    margin: -4px 2px 20px;
+    font-size: 13px;
+    color: #d55;
+}
+.caribo {
+    background: rgb(37, 180, 152);
+    color: #fff;
+    box-shadow: 0px 0px 20px rgba(0,0,0,.2);
+    padding: 15px 28px;
+    border-radius: 40px;
+    display: block;
+    margin: 15px auto 0;
+    width: 30%;
+    text-align: center;
+    font-family: 'Raleway';
+    text-decoration: none;
+    font-size: 15px;
+}
+.tooltip{
+    background:rgba(0,0,0,.9);
+    border-radius:4px;
+    color:#ffffffcc;
+    padding:10px 16px;
+    position: absolute;
+    top:-38px;
+    left:33%;
+    display:none;
+    font-size:13px;
+}
+.tooltip > div{
+    background:rgba(0,0,0,.9);
+    width:10px;
+    height:10px;
+    position: absolute;
+    bottom:-4px;
+    transform:rotate(45deg);
+}
+
+
+.create{
+    width:50%;
+    display:none;
+    height:540px;
+    background:#fff;
+    box-shadow:0px 0px 60px rgba(0,0,0,.3);
+    position:absolute;
+    border-radius:5px;
+    top:6%;
+    left:0;right:0;
+    padding:20px 40px;
+    margin:0 auto;
+    z-index:9999;
+}
+.create > h3{
+    text-align:center;
+    font-size:23px;
+    font-weight:400;
+    margin-bottom:10px;
+}
+.create > p{
+    text-align:center;
+    margin-top:0;
+}
+.createIn{
+    width:90%;
+    height:320px;
+    margin:8% auto;
+    display:flex;
+}
+.createIn div{
+    transition: all 0.4s ease;
+    width:50%;
+    height:320px;
+    border-radius:6px;
+    box-shadow: 0px 0px 40px rgba(0,0,0,.1);
+    cursor:pointer;
+    color:#555;
+    background:#fff;
+}
+.createIn div.cur{
+    z-index:1;
+    transform: scale(1.1);
+    background:linear-gradient(#00bcdb, #007498);
+    color:#fff;
+}
+div.blue{
+    padding-top:10px;
+    box-shadow: 0px 0px 40px rgba(0,0,0,.3);
+}
+.createIn div p{
+    text-shadow: none;
+    font-size:13px;
+    padding:0px 44px;
+    line-height: 1.4em;
+    margin-top:0px;
+    opacity: 0.96;
+    color:inherit !important;
+}
+.createIn div h4{
+    text-transform: uppercase;
+    text-shadow: none;
+    font-size:12px;
+    color:inherit !important;
+    margin-top:10px;
+    padding:0px 44px;
+    margin-bottom:12px;
+    opacity:0.96;
+}
+.createAgain{
+    width:33%;
+    display:none;
+    padding:10px 30px 30px 30px;
+    border:1px solid #ccc;
+    box-shadow:0px 0px 70px rgba(0,0,0,.4);
+    background:#fff;
+    border-radius:6px;
+    position: fixed;
+    margin:0 auto;
+    height:auto;
+    z-index:99999;
+    top:150px;
+    left:0;right:0;
+}
+
+.createAgain button
+{
+    background:#47bac1;
+    color:#fff;
+    border:2px solid #47bac1;
+    border-radius:4px;
+    font-size:10px;
+    padding:4px 24px;
+    height:40px;
+    margin:0px 0px 10px 0px;
+    text-transform:uppercase;
+    font-weight:800;
+    cursor:pointer;
+    letter-spacing: 0.7px;
+    box-shadow:6px 6px 20px rgba(0,0,0,.1);
+    transition:all 0.5s ease;
+    transform:scale(1s);
+}
+.createAgain button:hover{
+    background:#fff;
+    border:2px solid #47bac1;
+    color:#47bac1;
+    transform:scale(1.1);
+}
+.skillsAdd .coursesLoad{
+    margin-bottom:0px !important;
+}
+.cust-fade {
+    transition: opacity .3s ease-in-out;
+}
