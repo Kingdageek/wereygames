@@ -68,6 +68,10 @@
                                     <a class="active" href="{{ route('admin.wereywords.index') }}">
                                     <i class="si si-docs"></i><span class="sidebar-mini-hide">Wereywords</span></a>
                                 </li>
+                                <li>
+                                    <a class="active" href="{{ route('admin.wereyimages.index') }}">
+                                    <i class="si si-docs"></i><span class="sidebar-mini-hide">Wereyimages</span></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
