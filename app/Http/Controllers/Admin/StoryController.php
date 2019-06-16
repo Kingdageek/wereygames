@@ -13,7 +13,7 @@ use Validator;
 use Log;
 use Auth;
 use App\Models\Wordgroup;
-
+use App\Models\Wereyimage;
 
 class StoryController extends Controller
 {
@@ -82,12 +82,13 @@ class StoryController extends Controller
         $this->validate($request, [
             'title' => 'required|unique:stories',
             'content' => 'required',
-            'featured_image' => 'required|image'
+            'imageId' => 'required|integer'
         ]);
 
         $story = new Story();
         $story->title = ucfirst($request->title);
         $story->content = $request->content;
+        $story->wereyimage_id = $request->imageId;
 
         if (preg_match_all('/{([^}]*)}/', $request->content, $matches)) {
             $contentWordgroups = array_map('trim', $matches[1]);
@@ -112,7 +113,7 @@ class StoryController extends Controller
         }
 
         // Handle uploaded image
-        $story->featured_photo = $this->getImagePath( $request->featured_image ) ?? '';
+        // $story->featured_photo = $this->getImagePath( $request->featured_image ) ?? '';
 
         // Persist
         $story->save();
@@ -172,7 +173,8 @@ class StoryController extends Controller
 
     public function createStory()
     {
-        return view('admin.story.create');
+        $wereyimages = Wereyimage::orderBy('id', 'DESC')->get();
+        return view('admin.story.create', compact('wereyimages'));
     }
 
     public function edit(Request $request, $id)
@@ -224,7 +226,8 @@ class StoryController extends Controller
 
     public function editStory(Story $story)
     {
-        return view('admin.story.edit', compact('story'));
+        $wereyimages = Wereyimage::orderBy('id', 'DESC')->get();
+        return view('admin.story.edit', compact('story', 'wereyimages'));
     }
 
     public function updateStory(Story $story, Request $request)
@@ -234,7 +237,7 @@ class StoryController extends Controller
         $this->validate($request, [
             'title' => 'required|max:50|unique:stories,title,'. $story->id,
             'content' => 'required',
-            'featured_image' => 'nullable|image'
+            'imageId' => 'required|integer'
         ]);
 
         if (preg_match_all('/{([^}]*)}/', $request->content, $matches)) {
@@ -261,15 +264,16 @@ class StoryController extends Controller
 
         $story->title = ucfirst($request->title);
         $story->content = $request->content;
+        $story->wereyimage_id = $request->imageId;
 
-        if ( $request->hasFile('featured_image') ) {
-            // Delete the previous one
-            if ( file_exists($story->featured_photo) ) {
-                unlink($story->featured_photo);
-            }
-            // Handle uploaded image
-            $story->featured_photo = $this->getImagePath($request->featured_image) ?? '';
-        }
+        // if ( $request->hasFile('featured_image') ) {
+        //     // Delete the previous one
+        //     if ( file_exists($story->featured_photo) ) {
+        //         unlink($story->featured_photo);
+        //     }
+        //     // Handle uploaded image
+        //     $story->featured_photo = $this->getImagePath($request->featured_image) ?? '';
+        // }
 
         $story->save();
         return redirect()->route('admin.stories')->with('success', 'Story successfully updated');
