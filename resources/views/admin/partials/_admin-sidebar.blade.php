@@ -59,6 +59,10 @@
                                     <a class="active" href="{{ route('admin.users') }}">
                                     <i class="si si-users"></i><span class="sidebar-mini-hide">Admin Users</span></a>
                                 </li>
+                                <li>
+                                    <a class="active" href="{{ route('admin.settings.index') }}">
+                                    <i class="si si-settings"></i><span class="sidebar-mini-hide">Settings</span></a>
+                                </li>
                                 @endif
                                 <li>
                                     <a class="active" href="{{ route('admin.wordgroups.index') }}">
