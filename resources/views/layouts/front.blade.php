@@ -34,10 +34,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
+                    @if ( ! $betaMode )
                     <ul class="list-inline">
-<!--                         <li class="list-inline-item"><a class="text-white" href="{{ route('get.stories') }}">Stories</a></li>
-                        <li class="list-inline-item"><a class="text-white" href="{{ route('front.about') }}">About</a></li> -->
+                        <li class="list-inline-item"><a class="text-white" href="{{ route('get.stories') }}">Stories</a></li>
+                        <li class="list-inline-item"><a class="text-white" href="{{ route('front.about') }}">About</a></li>
                     </ul>
+                    @endif
                 </div>
             </div>
             <div class="row my-2">

@@ -9,6 +9,7 @@ use App\Models\UserStory;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 use App\Services\PageSeoService;
+use App\Models\Settings;
 
 class FrontController extends Controller
 {
@@ -45,8 +46,11 @@ class FrontController extends Controller
 
         $this->pageSeoService->index();
 
-        return response()->view('index-backup')->cookie('identifier', $guest->identifier);
-        // return response()->view('index')->cookie('identifier', $guest->identifier);
+        $betaMode = Settings::first()->beta_mode;
+        if ( $betaMode ) {
+            return response()->view('index', compact('betaMode'))->cookie('identifier', $guest->identifier);
+        }
+        return response()->view('index-backup', compact('betaMode'))->cookie('identifier', $guest->identifier);
     }
 
     public function storyPreview(Request $request, $slug)
