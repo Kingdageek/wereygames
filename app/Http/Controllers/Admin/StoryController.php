@@ -14,13 +14,16 @@ use Log;
 use Auth;
 use App\Models\Wordgroup;
 use App\Models\Wereyimage;
+use App\Models\Settings;
 
 class StoryController extends Controller
 {
+    private $wereywordHints;
 
     public function __construct()
     {
         $this->middleware('auth');
+        $this->wereywordHints = Settings::first()->wereyword_hints;
     }
 
 
@@ -82,38 +85,38 @@ class StoryController extends Controller
         $this->validate($request, [
             'title' => 'required|unique:stories',
             'content' => 'required',
-            'imageId' => 'required|integer'
+            'image' => 'required|integer'
         ]);
 
         $story = new Story();
         $story->title = ucfirst($request->title);
         $story->content = $request->content;
-        $story->wereyimage_id = $request->imageId;
+        $story->wereyimage_id = $request->image;
 
-        if (preg_match_all('/{([^}]*)}/', $request->content, $matches)) {
-            $contentWordgroups = array_map('trim', $matches[1]);
-            foreach ($contentWordgroups as $contentWordgroup) {
-                // check if match is not a Wordgroup
-                $wordgroup = Wordgroup::where('name', $contentWordgroup)->first();
-                if ( ! $wordgroup ) {
-                    return redirect()->back()
-                                    ->with('error', '<strong>' . $contentWordgroup . '</strong> is not a Wordgroup')
-                                    ->withInput($request->input());
-                }
-
-                // check if Wordgroup has at least 5 wereywords
-                if ( $wordgroup->wereywords->count() < 5 ) {
-                    return redirect()->back()
-                                    ->with('error', '<strong>' . $contentWordgroup . '</strong> Wordgroup has less than 5 Wereywords')
-                                    ->withInput($request->input());
-                }
-            }
-            // autogenerate form
-            $story->form = $this->generateFormJson($contentWordgroups);
+        if ( ! preg_match_all('/{([^}]*)}/', $request->content, $matches) ) {
+            return redirect()->back()
+                        ->with('error', "You can't create a story without a wordgroup pattern. You don't want a mad libs game without libs aye")
+                        ->withInput($request->input());
         }
+        $contentWordgroups = array_map('trim', $matches[1]);
+        foreach ($contentWordgroups as $contentWordgroup) {
+            // check if match is not a Wordgroup
+            $wordgroup = Wordgroup::where('name', $contentWordgroup)->first();
+            if ( ! $wordgroup ) {
+                return redirect()->back()
+                        ->with('error', '<strong>' . $contentWordgroup . '</strong> is not a Wordgroup')
+                        ->withInput($request->input());
+            }
 
-        // Handle uploaded image
-        // $story->featured_photo = $this->getImagePath( $request->featured_image ) ?? '';
+            // check if Wordgroup has at least specified wereywords
+            if ( $wordgroup->wereywords->count() < $this->wereywordHints ) {
+                return redirect()->back()
+                        ->with('error', '<strong>' . $contentWordgroup . '</strong> Wordgroup has less than '. $this->wereywordHints .' Wereywords')
+                        ->withInput($request->input());
+            }
+        }
+        // autogenerate new form
+        $story->form = $this->generateFormJson($contentWordgroups);
 
         // Persist
         $story->save();
@@ -156,19 +159,6 @@ class StoryController extends Controller
             $wereywordNames[] = $wereyword;
         }
         return json_encode($formArray);
-    }
-
-    private function getImagePath ($featured)
-    {
-        $randomKey = sha1(time() . microtime());
-        $extension = $featured->getClientOriginalExtension();
-        $fileName = $randomKey . '.' . $extension;
-        $destinationPath = 'uploads';
-        $upload_success = $featured->move($destinationPath, $fileName);
-        if ($upload_success) {
-            $path = 'uploads/'.$fileName;
-            return $path;
-        }
     }
 
     public function createStory()
@@ -237,44 +227,36 @@ class StoryController extends Controller
         $this->validate($request, [
             'title' => 'required|max:50|unique:stories,title,'. $story->id,
             'content' => 'required',
-            'imageId' => 'required|integer'
+            'image' => 'required|integer'
         ]);
 
-        if (preg_match_all('/{([^}]*)}/', $request->content, $matches)) {
-            $contentWordgroups = array_map('trim', $matches[1]);
-            foreach ($contentWordgroups as $contentWordgroup) {
-                // check if match is not a Wordgroup
-                $wordgroup = Wordgroup::where('name', $contentWordgroup)->first();
-                if ( ! $wordgroup ) {
-                    return redirect()->back()
-                                    ->with('error', '<strong>' . $contentWordgroup . '</strong> is not a Wordgroup')
-                                    ->withInput($request->input());
-                }
-
-                // check if Wordgroup has at least 5 wereywords
-                if ( $wordgroup->wereywords->count() < 5 ) {
-                    return redirect()->back()
-                                    ->with('error', '<strong>' . $contentWordgroup . '</strong> Wordgroup has less than 5 Wereywords')
-                                    ->withInput($request->input());
-                }
-            }
-            // autogenerate new form
-            $story->form = $this->generateFormJson($contentWordgroups);
+        if ( ! preg_match_all('/{([^}]*)}/', $request->content, $matches) ) {
+            return redirect()->back()
+                        ->with('error', "You can't create a story without a wordgroup pattern. You don't want a mad libs game without libs aye")
+                        ->withInput($request->input());
         }
+        $contentWordgroups = array_map('trim', $matches[1]);
+        foreach ($contentWordgroups as $contentWordgroup) {
+            // check if match is not a Wordgroup
+            $wordgroup = Wordgroup::where('name', $contentWordgroup)->first();
+            if ( ! $wordgroup ) {
+                return redirect()->back()
+                        ->with('error', '<strong>' . $contentWordgroup . '</strong> is not a Wordgroup')
+                        ->withInput($request->input());
+            }
 
+            // check if Wordgroup has at least specified wereywords
+            if ( $wordgroup->wereywords->count() < $this->wereywordHints ) {
+                return redirect()->back()
+                        ->with('error', '<strong>' . $contentWordgroup . '</strong> Wordgroup has less than '. $this->wereywordHints .' Wereywords')
+                        ->withInput($request->input());
+            }
+        }
+        // autogenerate new form
+        $story->form = $this->generateFormJson($contentWordgroups);
         $story->title = ucfirst($request->title);
         $story->content = $request->content;
-        $story->wereyimage_id = $request->imageId;
-
-        // if ( $request->hasFile('featured_image') ) {
-        //     // Delete the previous one
-        //     if ( file_exists($story->featured_photo) ) {
-        //         unlink($story->featured_photo);
-        //     }
-        //     // Handle uploaded image
-        //     $story->featured_photo = $this->getImagePath($request->featured_image) ?? '';
-        // }
-
+        $story->wereyimage_id = $request->image;
         $story->save();
         return redirect()->route('admin.stories')->with('success', 'Story successfully updated');
     }

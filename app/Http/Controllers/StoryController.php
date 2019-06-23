@@ -7,9 +7,17 @@ use App\Models\Guest;
 use App\Models\UserStory;
 use Illuminate\Http\Request;
 use App\Models\Wordgroup;
+use App\Models\Settings;
 
 class StoryController extends Controller
 {
+    protected $wereywordHints;
+
+    public function __construct()
+    {
+        $this->wereywordHints = Settings::first()->wereyword_hints;
+    }
+
     public function play(Request $request)
     {
         $guest = session()->get('guest');
@@ -226,17 +234,16 @@ class StoryController extends Controller
 
     public function getHints(Request $request)
     {
-        // $fieldName = $request->fieldName;
         $wordgroupName = $request->wordgroupName;
-        // dd($fieldName, $wordgroupName);
 
         // Get wereywords associated with the wordgroup
         $wordgroup = Wordgroup::with([ 'wereywords' => function ($query) {
             $query->inRandomOrder();
         }])->whereName($wordgroupName)->first();
 
-        // Take 5 elements and retrieve only the 'name' columns in format ['name' => 'sweaty balls']
-        $wereywords = $wordgroup->wereywords->take(5)->map->only('name');
+        // Take 'this->wereywordHints' elements and retrieve only the 'name'
+        // columns in format ['name' => 'sweaty balls']
+        $wereywords = $wordgroup->wereywords->take($this->wereywordHints)->map->only('name');
         return $wereywords->toJson();
     }
 
