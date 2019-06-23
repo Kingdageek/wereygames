@@ -75,6 +75,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::post('/wereyimages/process', 'WereyimageController@process')
             ->name('wereyimages.process');
 
+        Route::get('/settings', 'SettingsController@index')
+            ->name('settings.index');
+
+        Route::post('/settings/update', 'SettingsController@update')
+            ->name('settings.update');
+
         Route::resource('/wordgroups', 'WordgroupController');
         Route::resource('/wereywords', 'WereywordController');
         Route::resource('/wereyimages', 'WereyimageController');
