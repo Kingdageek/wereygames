@@ -36,7 +36,7 @@
                                 <label>Content</label>
                                 <textarea class="form-control" name="content" rows="10" placeholder="Content.." required>{{ old('content') }}</textarea>
                             </div>
-                            <input type="hidden" name="imageId" id="imageId">
+                            <input type="hidden" name="image" id="imageId">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-alt-primary">Submit</button>
                             </div>

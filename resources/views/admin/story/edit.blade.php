@@ -35,7 +35,7 @@
                                 <label>Content</label>
                                 <textarea class="form-control" name="content" rows="10" placeholder="Content.." required>{{ $story->content }}</textarea>
                             </div>
-                            <input type="hidden" name="imageId" id="imageId" value="{{ $story->wereyimage_id }}">
+                            <input type="hidden" name="image" id="imageId" value="{{ $story->wereyimage_id }}">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-alt-primary">Submit</button>
                             </div>
